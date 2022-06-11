@@ -5,15 +5,15 @@ import {
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 
 let login = () =>{
-    getAuthorized('USERNAME').then(response => {
+    getAuthorized('KirillB').then(response => {
         let a = response.data;
         debugger;
-    })
+    });
 }
 let getParam = () =>{
     getPageOrganization(12).then(response => {
         debugger;
-    })
+    });
 }
 
 const Agent = () => {
