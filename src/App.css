@@ -1,21 +1,25 @@
 .App {
   width: 1440px;
   height: 1028px;
+}
 
+.app_content {
   display: grid;
   grid-template-areas:
-  'n c';
+    'n c';
 
   grid-template-columns: 48px 1fr;
 }
-.app_navbar{
+
+.app_navbar {
   grid-area: n;
 }
-.app_wrapper{
+
+.app_wrapper {
   grid-area: c;
 }
 
-.test{
+.test {
   visibility: hidden;
   position: absolute;
   left: 0;
