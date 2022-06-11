@@ -1,0 +1,14 @@
+.wrapper_box{
+    display: grid;
+
+    grid-template-areas:
+    'o c';
+
+    grid-template-columns: 224px 1fr;
+}
+.wrapper_box__organization{
+    grid-area: o;
+}
+.wrapper_box__listAgents{
+    grid-area: c;
+}

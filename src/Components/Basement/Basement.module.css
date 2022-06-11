@@ -1,0 +1,28 @@
+.basement_box{
+    display: grid;
+
+    grid-template-areas:
+    'a c';
+
+    grid-template-columns: 312 1fr;
+}
+.basement_box__text_box {
+    grid-area: c;
+
+    margin: 20px 0 0 0;
+
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    height: 48px;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #B9B9B9;
+}
