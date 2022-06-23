@@ -3,4 +3,23 @@
     height: 900px;
 
     background-color: #82B284;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.sideMenu_box_element{
+    display: flex;
+
+    height: 61px;
+
+    justify-content: center;
+    align-items: center;
+}
+.sideMenu_box_element img{
+    width: 19px;
+    height: 19px;
 }

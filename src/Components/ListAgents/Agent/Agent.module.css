@@ -1,0 +1,45 @@
+.page_box{
+
+}
+
+.page_box_head{
+    height: 72px;
+    width: 1168px;
+
+    padding: 0 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #E5E5E5;
+}
+.head_back{
+    display: flex;
+
+    align-items: center;
+}
+.back_arrow{
+    height: 14px;
+    width: 34px;
+
+    padding: 0;
+
+    border: 1px solid black;
+}
+.back_arrow img{
+    margin: 0;
+    height: 14px;
+    /* position: absolute; */
+    border: 1px solid red;
+}
+.back_text{
+    border: 1px solid black;
+}
+.head_action_menu{
+    display: flex;
+
+    align-items: center;
+}

@@ -1,11 +1,9 @@
 import React from "react";
 import s from "./ListAhents.module.css";
-import {
-    Outlet,
-    NavLink
-} from "react-router-dom";
+import {Outlet} from "react-router-dom";
+import { connect } from 'react-redux';
 
-const ListAgents = () => {
+const ListAgents = (props) => {
     return (
         <div className={s.wrapper_box}>
             <div className={s.wrapper_box__organization}>
@@ -13,11 +11,16 @@ const ListAgents = () => {
             </div>
             <div className={s.wrapper_box__listAgents}>
                 <div>
-                    <Outlet />
+                    <Outlet {...props}/>
                 </div>
             </div>
         </div>
     );
 }
 
-export default ListAgents;
+
+let mstp = (state) => ({
+    aboutAgent: state.AboutAgent.pageInfo
+})
+
+export default connect(mstp)(ListAgents);
