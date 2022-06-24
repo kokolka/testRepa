@@ -9,7 +9,9 @@ const AgentContainer = (props) => {
 }
 
 let mstp = (state) => ({
-    aboutAgent: state.AboutAgent.pageInfo
+    aboutAgent: state.AboutAgent.pageData,
+    fotoForPage: state.AboutAgent.photoById,
+    contacts: state.contacts
 })
 
 

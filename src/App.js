@@ -8,6 +8,7 @@ import SideMenu from './Components/Side Menu/SideMenu';
 import Basement from './Components/Basement/Basement';
 import ListAgents from './Components/ListAgents/ListAhents';
 import AgentContainer from './Components/ListAgents/Agent/AgentContainer';
+import ChoiceOfAgentContainer from './Components/ListAgents/ChoiceOfAgent/ChoiceOfAgentContainer';
 
 
 function App() {
@@ -21,10 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<div>home</div>} />
             <Route path="organizations" element={<ListAgents />}>
-              <Route path="" element={<div>
-                <div>List agents</div>
-                <NavLink to='22'>org 22</NavLink>
-              </div>} />
+              <Route path="" element={<ChoiceOfAgentContainer />} />
               <Route path=":id" element={<AgentContainer/>} />
             </Route>
             <Route path="find" element={<div>find</div>} />
