@@ -104,6 +104,12 @@ const Agent = (props) => {
                 <div>
                     {changeDataStile(el.date)}
                 </div>
+                <div onClick={() => {
+                    debugger
+                    props.deleteImgFromPage(idAgent, el.id);
+                }}>
+                    del
+                </div>
             </div>
         )
     })
@@ -151,7 +157,7 @@ const Agent = (props) => {
                 </div>
                 <div>
                     ПРИЛОЖИТЬ ФОТО
-                    <div>
+                    <div className={s.photo_box}>
                         {arrowImg}
                     </div>
                 </div>

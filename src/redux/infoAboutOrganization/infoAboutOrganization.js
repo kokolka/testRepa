@@ -58,37 +58,48 @@ let initialState = {
             "updatedAt": "2020-11-23T09:30:00Z"
         }
     },
-    photoById:{
-        12:[
-            {img: img1, id: 1, date: '2022-06-24'},
-            {img: img2, id: 2, date: '2022-06-24'}
+    photoById: {
+        12: [
+            { img: img1, id: 1, date: '2022-06-24' },
+            { img: img2, id: 2, date: '2022-06-24' }
         ],
-        13:[
-            {img: img3, id: 1, date: '2022-06-24'}
+        13: [
+            { img: img3, id: 1, date: '2022-06-24' }
         ]
     }
 }
 
 const infoAboutOrganization = (state = initialState, action) => {
     switch (action.type) {
-        case SET_INFO_PAGE:
+        case SET_INFO_PAGE: {
             return {
                 ...state,
-                ...state.pageData,
-                [action.id]: action.payload
+                pageData: { ...state.pageData, [action.id]: action.payload },
             }
-        case DELETE_IMG_FROM_PAGE:
-            return{
+        }
+        case DELETE_IMG_FROM_PAGE: {
+            debugger
+            let copyState = {
                 ...state,
-                ...state.photoById,
-                [action.id]: [...state.photoById[action.id].filter(el => el.id != action.id)]
-            }
-        default:
-            return state;
+                photoById: { ...state.photoById }
+            };
+            copyState.photoById[action.UserId] = [...state.photoById[action.UserId]];
+            copyState.photoById[action.UserId] = state.photoById[action.UserId].map(el => {
+                return { img: el.img, id: el.id, date: el.date }
+            });
+            copyState.photoById[action.UserId] = copyState.photoById[action.UserId]
+                .filter(el =>
+                    el.id != action.photoId
+                );
+            return copyState;
+        }
+        default: return state;
     }
 }
 
-export const setInfoPage = (id, payload) => ({ type: SET_INFO_PAGE, id, payload });
-export const deleteImgFromPage = (id) => ({type: DELETE_IMG_FROM_PAGE, id})
+export const setInfoPage = (id, payload) => ({ type: SET_INFO_PAGE, id, payload });//добавление нового агента
+export const deleteImgFromPage = (UserId, photoId) => {
+    return { type: DELETE_IMG_FROM_PAGE, UserId, photoId }
+}; //удаление фотографии со страницы
 
 export default infoAboutOrganization;

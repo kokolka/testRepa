@@ -43,3 +43,8 @@
 
     align-items: center;
 }
+
+
+.photo_box{
+    display: flex;
+}
