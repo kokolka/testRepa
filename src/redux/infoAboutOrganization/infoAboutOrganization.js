@@ -5,6 +5,7 @@ import img3 from '../../assets/image/ForPage/эко1.jpg';
 
 const SET_INFO_PAGE = 'SET_INFO_PAGE';
 const DELETE_IMG_FROM_PAGE = 'DELETE_IMG_FROM_PAGE';
+const SET_GENERAL_INFO = 'SET_GENERAL_INFO';
 
 let initialState = {
     pageData: {
@@ -78,7 +79,6 @@ const infoAboutOrganization = (state = initialState, action) => {
             }
         }
         case DELETE_IMG_FROM_PAGE: {
-            debugger
             let copyState = {
                 ...state,
                 photoById: { ...state.photoById }
@@ -87,19 +87,40 @@ const infoAboutOrganization = (state = initialState, action) => {
             copyState.photoById[action.UserId] = state.photoById[action.UserId].map(el => {
                 return { img: el.img, id: el.id, date: el.date }
             });
+            //выше глубокое копирование
             copyState.photoById[action.UserId] = copyState.photoById[action.UserId]
                 .filter(el =>
                     el.id != action.photoId
                 );
             return copyState;
         }
+        case SET_GENERAL_INFO: {
+            debugger
+            let copyState = {
+                ...state,
+                pageData: { ...state.pageData }
+            };
+            copyState.pageData[action.UserId] = {...state.pageData[action.UserId]};
+            copyState.pageData[action.UserId].contract = {...state.pageData[action.UserId].contract};
+            copyState.pageData[action.UserId].type = [...state.pageData[action.UserId].type]; //возможно ненужно
+            //выше глубокое копирование
+            debugger
+            copyState.pageData[action.UserId].shortName = action.newShortName; //установливаю нового короткого имени
+            copyState.pageData[action.UserId].businessEntity = action.newBusinessEntity; //устнавливаю тип юр лица
+            copyState.pageData[action.UserId].name = `${action.newBusinessEntity} ${action.newShortName}`; //устанавливаю полное имя компании
+            copyState.pageData[action.UserId].contract.no = action.newСontractNo; //устнавливаю договор
+            copyState.pageData[action.UserId].contract.issue_date = action.newDate; //устнавливаю дата договора
+            copyState.pageData[action.UserId].type = action.newType; //устнавливаю типа услуг
+            debugger
+            return copyState
+        }
         default: return state;
     }
 }
 
 export const setInfoPage = (id, payload) => ({ type: SET_INFO_PAGE, id, payload });//добавление нового агента
-export const deleteImgFromPage = (UserId, photoId) => {
-    return { type: DELETE_IMG_FROM_PAGE, UserId, photoId }
-}; //удаление фотографии со страницы
+export const deleteImgFromPage = (UserId, photoId) => ({ type: DELETE_IMG_FROM_PAGE, UserId, photoId }); //удаление фотографии со страницы
+export const setGeneralInfo = (UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType) => 
+({ type: SET_GENERAL_INFO, UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType }); //удаление фотографии со страницы
 
 export default infoAboutOrganization;

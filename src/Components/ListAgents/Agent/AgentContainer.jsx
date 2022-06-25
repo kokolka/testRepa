@@ -1,7 +1,7 @@
 import React from "react";
 import Agent from "./Agent";
 import { connect } from "react-redux";
-import { deleteImgFromPage } from "../../../redux/infoAboutOrganization/infoAboutOrganization";
+import { deleteImgFromPage, setGeneralInfo } from "../../../redux/infoAboutOrganization/infoAboutOrganization";
 
 const AgentContainer = (props) => {
     
@@ -17,5 +17,6 @@ let mstp = (state) => ({
 })
 
 export default connect(mstp, {
-    deleteImgFromPage
+    deleteImgFromPage,
+    setGeneralInfo
 })(AgentContainer);

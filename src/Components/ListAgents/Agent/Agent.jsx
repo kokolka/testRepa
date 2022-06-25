@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
@@ -6,6 +6,7 @@ import BackArrow from "../../../assets/image/Back arrow.png";
 import DeletePage from "../../../assets/image/Delete page.png";
 import Linked from "../../../assets/image/Linked.png";
 import Update from "../../../assets/image/Update.png";
+import FormGeneralInfo from "./FormGeneralInfo/FormGeneralInfo";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -41,6 +42,8 @@ const numberChange = (number) =>{ //преобразование телефон�
 }
 
 const Agent = (props) => {
+    let [flagChangeGeneralInfo, setFlagChangeGeneralInfo] = useState(false);
+    
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
 
@@ -92,7 +95,6 @@ const Agent = (props) => {
         return `${day} ${month} ${year}`;
     }
 
-
     //создание массива изображениями + имя изображения + дата загрузки
     let arrowImg = props.fotoForPage[idAgent].map(el => {
         return(
@@ -121,8 +123,15 @@ const Agent = (props) => {
                 <div>
                     {props.aboutAgent[idAgent].shortName}
                 </div>
-                <div>
+                {flagChangeGeneralInfo == true
+                ?<div>
+                    <FormGeneralInfo idAgent={idAgent} setGeneralInfo={props.setGeneralInfo} changeFlag={setFlagChangeGeneralInfo}/>
+                </div>
+                :<div>
                     ОБЩАЯ ИНФОРМАЦИЯ
+                    <div onClick={()=>{setFlagChangeGeneralInfo(true)}}>
+                        Изменить
+                    </div>
                     <div>
                         <label>Полное название:</label>
                         <span>{props.aboutAgent[idAgent].name}</span>
@@ -139,7 +148,7 @@ const Agent = (props) => {
                         <label>Тип:</label>
                         <span>{arrowTypeAgent}</span>
                     </div>
-                </div>
+                </div>}
                 <div>
                     КОНТАКТНЫЕ ДАННЫЕ
                     <div>
@@ -162,13 +171,11 @@ const Agent = (props) => {
                     </div>
                 </div>
             </div>
-            {/* <div>
-                <button onClick={login}>Login</button>
-                <button onClick={getParam}>get page</button>
-            </div> */}
         </div>
     );
 }
+
+
 
 const HeadPage = (props) => {
     return (
