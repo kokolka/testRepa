@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 import BackArrow from "../../../assets/image/Back arrow.png";
@@ -13,6 +13,7 @@ import FormGeneralInfo from "./FormGeneralInfo/FormGeneralInfo";
 import FormContactDate from "./FormContactDate/FormContactDate";
 import FormName from "./FormName/FormName";
 import FormPhoto from "./FormPhoto/FormPhoto";
+import cn from "classnames";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -32,8 +33,7 @@ const dictionary = (word) => { //перевод типа компании на �
             return ("Агент");
         case "contractor":
             return ("Подрядчик");
-        default:
-            return ("");
+        default: return ("");
     }
 }
 
@@ -226,14 +226,17 @@ const Agent = (props) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <DeleteAgentPageElement actionDelete={setFlagDeletePage} />
+            <div className={cn(s.delete_page_box, { [s.delete_page_box__hide]: (flagDeletePage === false) })}>
+                <DeleteAgentPageElement
+                    deletePage={props.deletePage} idAgent={idAgent}
+                    actionDelete={setFlagDeletePage}
+                />
             </div>
         </div>
     );
 }
 
-const HeadPage = (props) => {
+const HeadPage = (props) => {//верхний элемент страницы
     return (
         <div className={s.page_box_head}>
             <div className={s.head_back}>
@@ -261,7 +264,7 @@ const HeadPage = (props) => {
     );
 }
 
-const DeleteAgentPageElement = (props) => {
+const DeleteAgentPageElement = (props) => { //окно для подтверждения удаления страницы
     return (
         <div>
             <div>Удалить каточку</div>
@@ -271,8 +274,8 @@ const DeleteAgentPageElement = (props) => {
                     props.actionDelete(false);
                 }}>ОТМЕНА</div>
                 <div onClick={() => {
-
-                }}>Удалить</div>
+                    props.deletePage(props.idAgent);
+                }}>УДАЛИТЬ</div>
             </div>
         </div>
     );

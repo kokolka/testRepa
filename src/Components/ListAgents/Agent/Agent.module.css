@@ -48,3 +48,7 @@
 .photo_box{
     display: flex;
 }
+
+.delete_page_box__hide{
+    visibility: hidden;
+}
