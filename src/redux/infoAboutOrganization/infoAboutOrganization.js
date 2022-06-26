@@ -6,6 +6,7 @@ const SET_INFO_PAGE = 'SET_INFO_PAGE';
 const DELETE_IMG_FROM_PAGE = 'DELETE_IMG_FROM_PAGE';
 const SET_GENERAL_INFO = 'SET_GENERAL_INFO';
 const SET_NAME = 'SET_NAME';
+const ADD_PHOTO = 'ADD_PHOTO';
 
 let initialState = {
     pageData: {
@@ -37,7 +38,7 @@ let initialState = {
         13: {
             "id": "13",
             "contactId": "17",
-            "name": "ИП «Неперспективные захоронения»",
+            "name": "ИП Фирма «Неперспективные захоронения»",
             "shortName": "Неперспективные захоронения",
             "businessEntity": "ИП",
             "contract": {
@@ -122,6 +123,21 @@ const infoAboutOrganization = (state = initialState, action) => {
             copyState.pageData[action.UserId].name = `${copyState.pageData[action.UserId].businessEntity} ${action.newName}`; //устанавливаю полное имя компании
             return copyState;
         }
+        case ADD_PHOTO: {
+            debugger
+            let newElement = {
+                img: action.img, 
+                id: action.id, 
+                date: action.date 
+            }
+
+            let copyState = {
+                ...state,
+                photoById: { ...state.photoById }
+            };
+            copyState.photoById[action.idAgent] = [...state.photoById[action.idAgent], newElement ]
+            return copyState;
+        }
         default: return state;
     }
 }
@@ -131,5 +147,6 @@ export const deleteImgFromPage = (UserId, photoId) => ({ type: DELETE_IMG_FROM_P
 export const setGeneralInfo = (UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType) => 
 ({ type: SET_GENERAL_INFO, UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType }); //удаление фотографии со страницы
 export const setName = (UserId, newName) => ({ type: SET_NAME, UserId, newName });//изменение имени фирмы
+export const addPhoto = (idAgent, img, id, date) => ({ type: ADD_PHOTO, idAgent, img, id, date });//добавление изображения
 
 export default infoAboutOrganization;

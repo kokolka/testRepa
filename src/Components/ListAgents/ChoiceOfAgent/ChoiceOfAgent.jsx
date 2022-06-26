@@ -5,13 +5,13 @@ const ChoiceOfAgent = (props) => {
 
     let listLinkAgent = Object.keys(props.aboutAgent).map(el => {
         return <div key={el}>
-            <NavLink to={el}>org {el}</NavLink>
+            <NavLink to={el}>{`${props.aboutAgent[el].name}`}</NavLink>
         </div>
     })
 
     return (
         <div>
-            <div>List agents</div>
+            <div>Список агентов</div>
             {listLinkAgent}
         </div>
     )

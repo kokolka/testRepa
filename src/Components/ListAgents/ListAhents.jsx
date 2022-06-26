@@ -1,13 +1,16 @@
 import React from "react";
 import s from "./ListAhents.module.css";
-import {Outlet} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import { connect } from 'react-redux';
 
 const ListAgents = (props) => {
     return (
         <div className={s.wrapper_box}>
             <div className={s.wrapper_box__organization}>
-                Organization
+                <div>ЧЕСТНЫЙ АГЕНТ</div>
+                <div>МЕНЕДЖЕР ПРОЦЕССА</div>
+                <NavLink to="agents" >Организации </NavLink>
+                
             </div>
             <div className={s.wrapper_box__listAgents}>
                 <div>

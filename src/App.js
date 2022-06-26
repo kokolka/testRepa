@@ -22,8 +22,10 @@ function App() {
           <Routes>
             <Route path="/" element={<div>home</div>} />
             <Route path="organizations" element={<ListAgents />}>
-              <Route path="" element={<ChoiceOfAgentContainer />} />
-              <Route path=":id" element={<AgentContainer/>} />
+              <Route path="agents">
+                <Route path="" element={<ChoiceOfAgentContainer />} />
+                <Route path=":id" element={<AgentContainer/>} />
+              </Route>
             </Route>
             <Route path="find" element={<div>find</div>} />
             <Route path="setting" element={<div>setting</div>} />

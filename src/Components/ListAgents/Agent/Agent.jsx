@@ -6,10 +6,13 @@ import BackArrow from "../../../assets/image/Back arrow.png";
 import DeletePage from "../../../assets/image/Delete page.png";
 import Linked from "../../../assets/image/Linked.png";
 import Update from "../../../assets/image/Update.png";
+import RegularButton from "../../../assets/image/Regular add.png";
 import ChangeElement from "../../../assets/image/Change.png";
+import DeletePhoto from "../../../assets/image/Dalete photo.png";
 import FormGeneralInfo from "./FormGeneralInfo/FormGeneralInfo";
 import FormContactDate from "./FormContactDate/FormContactDate";
 import FormName from "./FormName/FormName";
+import FormPhoto from "./FormPhoto/FormPhoto";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -48,16 +51,14 @@ const Agent = (props) => {
     let [flagChangeName, setFlagChangeName] = useState(false); //флаг отвечающий за отображение формы изменения имени фирмы
     let [flagChangeGeneralInfo, setFlagChangeGeneralInfo] = useState(false); //флаг отвечающий за отображение формы общей информаци
     let [flagChangeContactDate, setFlagChangeContactDate] = useState(false); //флаг отвечающий за отображение формы контактных данных
-    let [back, toggleBack] = useState(false); //флаг отвечающий за отображение формы контактных данных
+    let [flagChangePhoto, setFlagChangePhoto] = useState(false); //флаг отвечающий за отображение формы загрузки фото
+    let [flagDeletePage, setFlagDeletePage] = useState(false); //флаг отвечающий за отображение окна удаления карточки организации
 
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
     let userId = props.aboutAgent[idAgent].contactId; //id пользователя для контактов
 
     let contactID = props.aboutAgent[idAgent].contactId; //id контакта, нужно для отображения контактной информации
-
-    //**нужно переделать на редирект, так как есть нуанс работы */
-    let navigate = useNavigate(); //для возвращения на прошлую страницу
 
     const dataContract = props.aboutAgent[idAgent].contract.issue_date;
 
@@ -113,11 +114,11 @@ const Agent = (props) => {
                 <div>
                     {changeDataStile(el.date)}
                 </div>
+                {/* удаление изображения */}
                 <div onClick={() => {
-                    debugger
                     props.deleteImgFromPage(idAgent, el.id);
                 }}>
-                    del
+                    <img src={DeletePhoto} alt="del" />
                 </div>
             </div>
         )
@@ -125,10 +126,7 @@ const Agent = (props) => {
 
     return (
         <div className={s.page_box}>
-            <HeadPage navigate={navigate} toggleBack={toggleBack} />
-            <div>
-                <a href='http://localhost:3000/organizations/'>VVV </a>
-            </div>
+            <HeadPage actionDelete={setFlagDeletePage} />
             <div>
                 <div>
                     {flagChangeName == true
@@ -209,13 +207,31 @@ const Agent = (props) => {
                     <div className={s.photo_box}>
                         {arrowImg}
                     </div>
+                    <div>
+                        {flagChangePhoto === true
+                            ? <FormPhoto
+                                fotoForPage={props.fotoForPage} idAgent={idAgent}
+                                setFlagChangePhoto={setFlagChangePhoto} addPhoto={props.addPhoto}
+                            />
+                            : <div onClick={() => {
+                                setFlagChangePhoto(true);
+                            }}>
+                                <span>
+                                    <img src={RegularButton} alt="add" />
+                                </span>
+                                <span>
+                                    ДОБАВИТЬ ИЗОБРАЖЕНИЕ
+                                </span>
+                            </div>}
+                    </div>
                 </div>
+            </div>
+            <div>
+                <DeleteAgentPageElement actionDelete={setFlagDeletePage} />
             </div>
         </div>
     );
 }
-
-
 
 const HeadPage = (props) => {
     return (
@@ -235,9 +251,28 @@ const HeadPage = (props) => {
                 <div>
                     <img src={Update} />
                 </div>
-                <div>
+                <div onClick={() => {
+                    props.actionDelete(true);
+                }}>
                     <img src={DeletePage} />
                 </div>
+            </div>
+        </div>
+    );
+}
+
+const DeleteAgentPageElement = (props) => {
+    return (
+        <div>
+            <div>Удалить каточку</div>
+            <div>Отправить каточку организации в архив?</div>
+            <div>
+                <div onClick={() => {
+                    props.actionDelete(false);
+                }}>ОТМЕНА</div>
+                <div onClick={() => {
+
+                }}>Удалить</div>
             </div>
         </div>
     );
