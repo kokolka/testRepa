@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, NavLink } from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 import BackArrow from "../../../assets/image/Back arrow.png";
@@ -48,6 +48,7 @@ const Agent = (props) => {
     let [flagChangeName, setFlagChangeName] = useState(false); //флаг отвечающий за отображение формы изменения имени фирмы
     let [flagChangeGeneralInfo, setFlagChangeGeneralInfo] = useState(false); //флаг отвечающий за отображение формы общей информаци
     let [flagChangeContactDate, setFlagChangeContactDate] = useState(false); //флаг отвечающий за отображение формы контактных данных
+    let [back, toggleBack] = useState(false); //флаг отвечающий за отображение формы контактных данных
 
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
@@ -124,7 +125,10 @@ const Agent = (props) => {
 
     return (
         <div className={s.page_box}>
-            <HeadPage navigate={navigate} />
+            <HeadPage navigate={navigate} toggleBack={toggleBack} />
+            <div>
+                <a href='http://localhost:3000/organizations/'>VVV </a>
+            </div>
             <div>
                 <div>
                     {flagChangeName == true
@@ -217,8 +221,10 @@ const HeadPage = (props) => {
     return (
         <div className={s.page_box_head}>
             <div className={s.head_back}>
-                <div onClick={() => { props.navigate(-1) }} className={s.back_arrow}>
-                    <img src={BackArrow} />
+                <div className={s.back_arrow}>
+                    <NavLink to='../'>
+                        <img src={BackArrow} />
+                    </NavLink>
                 </div>
                 <div className={s.back_text}>К СПИСКУ ЮРИДИЧЕСКИХ ЛИЦ</div>
             </div>
