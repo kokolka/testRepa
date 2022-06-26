@@ -8,34 +8,38 @@ const FormGeneralInfo = (props) => {
     return (
         <div>
             <Formik
-                //initialValues={{ email: '', password: '' }}
-                initialValues={{ shortNameAgent: '', businessEntity: '', contractNo: '', date: '', type: [] }}
+                initialValues={{
+                    shortNameAgent: props.shortName, businessEntity: props.businessEntity,
+                    contractNo: props.contractNo, date: props.date, type: props.type
+                }}
                 validate={values => {
                     const errors = {};
                     if (!values.shortNameAgent) {
-                        errors.shortNameAgent = 'Required';
-                    } else if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.shortNameAgent)) {
-                        errors.shortNameAgent = 'Invalid email address';
+                        errors.shortNameAgent = 'Обязательно';
                     }
                     if (!values.businessEntity) {
-                        errors.businessEntity = 'Required';
+                        errors.businessEntity = 'Обязательно';
                     }
                     if (!values.contractNo) {
-                        errors.contractNo = 'Required';
+                        errors.contractNo = 'Обязательно';
+                    } else if (values.contractNo.length !== 5) {
+                        errors.contractNo = 'Неправильная код контракта';
                     }
                     if (!values.date) {
-                        errors.date = 'Required';
+                        errors.date = 'Обязательно';
                     }
                     if (!values.type) {
-                        errors.type = 'Required';
+                        errors.type = 'Обязательно';
                     }
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        props.setGeneralInfo(props.idAgent, values.shortNameAgent, values.businessEntity, values.contractNo, values.date, values.type);
+                        props.setGeneralInfo(
+                            props.idAgent, values.shortNameAgent, values.businessEntity, 
+                            values.contractNo, values.date, values.type
+                            );
                         props.changeFlag(false);
-                        alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
                 }}
@@ -71,7 +75,7 @@ const FormGeneralInfo = (props) => {
                             <div>
                                 <div>Тип юр. лица:</div>
                                 <select name="businessEntity" onChange={p.handleChange} onBlur={p.handleBlur}>
-                                    <option value={''} label={''}></option>
+                                    <option value={p.values.businessEntity} label={p.values.businessEntity}>p.values.businessEntity</option>
                                     <option value={'ООО'} label={'ООО'}>ООО</option>
                                     <option value={'ИП'} label={'ИП'}>ИП</option>
                                     <option value={'АО'} label={'АО'}>ИП</option>
@@ -109,11 +113,11 @@ const FormGeneralInfo = (props) => {
                                     : <div onClick={() => {
                                         setToggleAdd(true)
                                     }}>+</div>}
-                                <ErrorMessage name="type" component="div" />   
+                                <ErrorMessage name="type" component="div" />
                             </div>
                             <div>
                                 <button type="submit" disabled={p.isSubmitting}>
-                                    Submit
+                                    Отправить
                                 </button>
                             </div>
                         </Form>

@@ -1,4 +1,6 @@
 
+const SET_CONTACT_DATE = 'SET_CONTACT_DATE';
+
 let initialState = {
     16: {
         "id": "16",
@@ -24,12 +26,26 @@ let initialState = {
 
 const contactDetails = (state = initialState, action) => {
     switch (action.type) {
-
-
-        default:
-            return state;
+        case SET_CONTACT_DATE: {
+            //копирование данных
+            let copyState = {
+                ...state,
+                [action.userId]: { ...state[action.userId] }
+            };
+            //изменение данных
+            copyState[action.userId].lastname = action.newLastname;
+            copyState[action.userId].firstname = action.newFirstname;
+            copyState[action.userId].patronymic = action.newPatronymic;
+            copyState[action.userId].phone = action.newPhone;
+            copyState[action.userId].email = action.newEmail;
+            return copyState;
+        }
+        default: return state;
     }
 }
 
+export const setContactDate = (userId, newLastname, newFirstname, newPatronymic, newPhone, newEmail) => (
+    { type: SET_CONTACT_DATE, userId, newLastname, newFirstname, newPatronymic, newPhone, newEmail }
+)
 
 export default contactDetails;
