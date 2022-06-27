@@ -275,7 +275,11 @@ const DeleteAgentPageElement = (props) => { //окно для подтвержд
                 }}>ОТМЕНА</div>
                 <div onClick={() => {
                     props.deletePage(props.idAgent);
-                }}>УДАЛИТЬ</div>
+                }}>
+                    <NavLink to='../'>
+                        УДАЛИТЬ
+                    </NavLink>
+                </div>
             </div>
         </div>
     );
