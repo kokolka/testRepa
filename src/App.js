@@ -1,11 +1,11 @@
 import './App.css';
 import { Routes, Route} from "react-router-dom";
-import SideMenu from './Components/Side Menu/SideMenu';
 import Basement from './Components/Basement/Basement';
 import AgentContainer from './Components/ListAgents/Agent/AgentContainer';
 import ChoiceOfAgentContainer from './Components/ListAgents/ChoiceOfAgent/ChoiceOfAgentContainer';
 import ListAhentsContainer from './Components/ListAgents/ListAhentsContainer';
 import LoginContainer from './Components/Login/LoginContainer';
+import SideMenuContainer from './Components/Side Menu/SideMenuContainer';
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <div className='app_content'>
         <div className='app_navbar'>
-          <SideMenu />
+          <SideMenuContainer />
         </div>
         <div className='app_wrapper'>
           <Routes>
@@ -27,7 +27,6 @@ function App() {
             <Route path="find" element={<div>find</div>} />
             <Route path="setting" element={<div>setting</div>} />
             <Route path="support" element={<div>support</div>} />
-            <Route path="logout" element={<div>logout</div>} />
             <Route path="login" element={<LoginContainer />} />
           </Routes>
         </div>

@@ -8,7 +8,7 @@ import Support from "../../assets/image/Technical support.png";
 import Setting from "../../assets/image/Setting.png";
 import Logout from "../../assets/image/Logout.png";
 
-const SideMenu = () => {
+const SideMenu = (props) => {
     return (
         <div className={s.sideMenu_box}>
             <div>
@@ -43,9 +43,9 @@ const SideMenu = () => {
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='logout' className={s.sideMenu_box_element}>
+                    <div onClick={props.resetUserId} className={s.sideMenu_box_element}>
                         <img src={Logout} />
-                    </NavLink>
+                    </div>
                 </div>
             </div>
         </div>
