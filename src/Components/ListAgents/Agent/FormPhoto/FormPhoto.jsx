@@ -3,7 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const FormPhoto = (props) => {
     //получения id последней фотографии
-    let lastIdPhoto = props.fotoForPage[props.idAgent][props.fotoForPage[props.idAgent].length - 1].id;
+    let lastIdPhoto;
+    if(props.fotoForPage[props.idAgent].length === 0){
+        lastIdPhoto = 1;
+    }else{
+        lastIdPhoto = props.fotoForPage[props.idAgent][props.fotoForPage[props.idAgent].length - 1].id;
+    }
+
     return (
         <div>
             <Formik
@@ -19,7 +25,6 @@ const FormPhoto = (props) => {
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                    debugger
                     setTimeout(() => {
                         props.addPhoto(props.idAgent, values.img, values.id, values.date);
                         props.setFlagChangePhoto(false);

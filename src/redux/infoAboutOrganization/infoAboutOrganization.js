@@ -133,6 +133,9 @@ const infoAboutOrganization = (state = initialState, action) => {
 
             delete copyState.pageData[action.UserId];
             delete copyState.photoById[action.UserId];
+            if(!copyState.pageData[action.UserId]){
+                debugger
+            }
             return copyState;
         }
         default: return state;

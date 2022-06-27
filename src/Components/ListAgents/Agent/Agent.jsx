@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, NavLink} from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 import BackArrow from "../../../assets/image/Back arrow.png";
@@ -9,12 +9,11 @@ import Update from "../../../assets/image/Update.png";
 import RegularButton from "../../../assets/image/Regular add.png";
 import ChangeElement from "../../../assets/image/Change.png";
 import DeletePhoto from "../../../assets/image/Dalete photo.png";
-import FormGeneralInfo from "./FormGeneralInfo/FormGeneralInfo";
-import FormContactDate from "./FormContactDate/FormContactDate";
 import FormName from "./FormName/FormName";
 import FormPhoto from "./FormPhoto/FormPhoto";
 import cn from "classnames";
 import ContactDateWithChange from "../../common/ContactDateWithChange/ContactDateWithChange";
+import GeneralInfoWithForm from "../../common/GeneralInfoWithForm/GeneralInfoWithForm";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -28,15 +27,7 @@ let getParam = () => { //получение данных о странице с 
     });
 }
 
-const dictionary = (word) => { //перевод типа компании на русский
-    switch (word) {
-        case "agent":
-            return ("Агент");
-        case "contractor":
-            return ("Подрядчик");
-        default: return ("");
-    }
-}
+
 
 
 
@@ -51,17 +42,6 @@ const Agent = (props) => {
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
 
     let contactID = props.aboutAgent[idAgent].contactId; //id контакта, нужно для отображения контактной информации
-
-    const dataContract = props.aboutAgent[idAgent].contract.issue_date;
-
-    //Создание массива с типом организации
-    let arrowTypeAgent = props.aboutAgent[idAgent].type.map(el => {
-        return (
-            <span key={el}>
-                {`${el === props.aboutAgent[idAgent].type[0] ? '' : ','} ${dictionary(el)}`}
-            </span>
-        );
-    });
 
     let splitString = (str) => { //получение название картинки из пути
         let result;
@@ -137,49 +117,23 @@ const Agent = (props) => {
                                 : null}
                         </div>}
                 </div>
-                {flagChangeGeneralInfo == true
-                    ? <div>
-                        <FormGeneralInfo
-                            idAgent={idAgent} setGeneralInfo={props.setGeneralInfo} changeFlag={setFlagChangeGeneralInfo}
-                            shortName={props.aboutAgent[idAgent].shortName} businessEntity={props.aboutAgent[idAgent].businessEntity}
-                            contractNo={props.aboutAgent[idAgent].contract.no}
-                            date={`${dataContract.substr(0, 4)}-${dataContract.substr(5, 2)}-${dataContract.substr(8, 2)}`}
-                            type={props.aboutAgent[idAgent].type}
-                        />
-                    </div>
-                    : <div>
-                        ОБЩАЯ ИНФОРМАЦИЯ
-                        {contactID == props.UserId
-                            ? <span onClick={() => { setFlagChangeGeneralInfo(true) }}>
-                                <img src={ChangeElement} alt="изм." />
-                            </span>
-                            : null}
-                        <div>
-                            <label>Полное название:</label>
-                            <span>{`${props.aboutAgent[idAgent].businessEntity} Фирма "${props.aboutAgent[idAgent].shortName}"`}</span>
-                        </div>
-                        <div>
-                            <label>Договор:</label>
-                            <span>{`${props.aboutAgent[idAgent].contract.no} от ${dataContract.substr(0, 4)}.${dataContract.substr(5, 2)}.${dataContract.substr(8, 2)}`}</span>
-                        </div>
-                        <div>
-                            <label>Фирма:</label>
-                            <span>{`${props.aboutAgent[idAgent].businessEntity}`}</span>
-                        </div>
-                        <div>
-                            <label>Тип:</label>
-                            <span>{arrowTypeAgent}</span>
-                        </div>
-                    </div>}
-                    <ContactDateWithChange
-                     contacts={props.contacts} setContactDate={props.setContactDate}
-                     setFlagChangeContactDate={setFlagChangeContactDate} contactID={contactID} 
-                     flagChangeContactDate={flagChangeContactDate} loginId={props.UserId}/>
+                <GeneralInfoWithForm
+                    idAgent={idAgent} setGeneralInfo={props.setGeneralInfo} setFlagChangeGeneralInfo={setFlagChangeGeneralInfo}
+                    aboutAgent={props.aboutAgent} UserId={props.UserId} contactID={contactID}
+                    flagChangeGeneralInfo={flagChangeGeneralInfo}
+                />
+                <ContactDateWithChange
+                    contacts={props.contacts} setContactDate={props.setContactDate}
+                    setFlagChangeContactDate={setFlagChangeContactDate} contactID={contactID}
+                    flagChangeContactDate={flagChangeContactDate} loginId={props.UserId} />
                 <div>
                     ПРИЛОЖЕННЫЕ ФОТО
-                    <div className={s.photo_box}>
+                    <ArrowImgAgent 
+                        fotoForPage={props.fotoForPage} idAgent={idAgent} contactID={contactID}
+                        UserId={props.UserId} deleteImgFromPage={props.deleteImgFromPage}/>
+                    {/* <div className={s.photo_box}>
                         {arrowImg}
-                    </div>
+                    </div> */}
                     <div>
                         {flagChangePhoto === true
                             ? <FormPhoto
@@ -235,6 +189,69 @@ const HeadPage = (props) => {//верхний элемент страницы
                     </div>
                 </div>
                 : null}
+        </div>
+    );
+}
+
+const ArrowImgAgent = (props) => {
+
+    let splitString = (str) => { //получение название картинки из пути
+        let result;
+        result = str.split('/');
+        result = result[result.length - 1];
+        result = result.split('.');
+        result = `${result[0]}.${result[result.length - 1]}`;
+        return result;
+    }
+
+    let changeDataStile = (date) => { //преобразование даты к типу: "24 июня 2022"
+        let year = date.substr(0, 4);
+        let month = date.substr(5, 2);
+        let day = date.substr(8, 2);
+
+        switch (month) {
+            case '01': month = "января"; break;
+            case '02': month = "февраля"; break;
+            case '03': month = "марта"; break;
+            case '04': month = "апреля"; break;
+            case '05': month = "мая"; break;
+            case '06': month = "июня"; break;
+            case '07': month = "июля"; break;
+            case '08': month = "августа"; break;
+            case '09': month = "сентября"; break;
+            case '10': month = "октября"; break;
+            case '11': month = "ноября"; break;
+            case '12': month = "декабря"; break;
+        }
+
+        return `${day} ${month} ${year}`;
+    }
+
+    let arrowImg = props.fotoForPage[props.idAgent].map(el => {
+        return (
+            <div key={el.id}>
+                <img src={el.img} />
+                <div>
+                    {splitString(el.img)}
+                </div>
+                <div>
+                    {changeDataStile(el.date)}
+                </div>
+                {/* удаление изображения */}
+                {props.contactID == props.UserId
+                    ? <div onClick={() => { props.deleteImgFromPage(props.idAgent, el.id) }}>
+                        <img src={DeletePhoto} alt="del" />
+                    </div>
+                    : null}
+            </div>
+        )
+    })
+
+    return (
+        <div>
+            <div className={s.photo_box}>
+                {arrowImg}
+            </div>
         </div>
     );
 }

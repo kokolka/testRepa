@@ -3,10 +3,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Navigate } from "react-router-dom";
 
 const Login = (props) => {
-    let [alertMessage, setAlertMessage] = useState('');
-    let [flagRegistrationForm, toggleFlagRegistrationForm] = useState(false);
+    let [alertMessage, setAlertMessage] = useState(''); //если есть ошибка связанная с ID, то она появится в alertMessage
+    let [flagRegistrationForm, toggleFlagRegistrationForm] = useState(false);//флаг переключения между формой логина и регистрации
 
-    if (props.UserId) {
+    if (props.UserId) { //если пользователь авторизован, то перенаправить на страницу с профилем
         return <Navigate to="../" />;
     }
 
@@ -43,9 +43,10 @@ const Login = (props) => {
                             }}
                             onSubmit={(values, { setSubmitting }) => {
                                 setTimeout(() => {
-                                    if (!props.contacts[values.newUserID]) {
+                                    if (!props.contacts[values.newUserID]) { //проверка на похожие ID
+                                        //добавление данных пользователя в BBL
                                         props.addNewPersona(values.newUserID, values.lastname, values.firstname, values.patronymic, values.phone, values.email);
-                                        props.setUserId(values.newUserID);
+                                        props.setUserId(values.newUserID); //авторизация
                                         setAlertMessage('');
                                     } else {
                                         setAlertMessage('Такой ID пользователя уже используется');
@@ -112,7 +113,7 @@ const Login = (props) => {
                         }}
                         onSubmit={(values, { setSubmitting }) => {
                             setTimeout(() => {
-                                if (!props.contacts[values.UserId]) {
+                                if (!props.contacts[values.UserId]) { //если ID пользователя нет в BBL
                                     setAlertMessage('Нет пользователя с таким ID. Вам нужно зарегистрироваться.');
                                 } else {
                                     setAlertMessage('');
