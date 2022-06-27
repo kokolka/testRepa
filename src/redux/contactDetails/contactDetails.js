@@ -1,4 +1,5 @@
 const SET_CONTACT_DATE = 'SET_CONTACT_DATE';
+const ADD_NEW_PERSONA = 'ADD_NEW_PERSONA';
 
 let initialState = {
     16: {
@@ -39,12 +40,31 @@ const contactDetails = (state = initialState, action) => {
             copyState[action.userId].email = action.newEmail;
             return copyState;
         }
+        case ADD_NEW_PERSONA: {
+            let newPersone = {
+                "id": `${action.newUserID}`,
+                "lastname": action.lastname,
+                "firstname": action.firstname,
+                "patronymic": action.patronymic,
+                "phone": `${action.phone}`,
+                "email": action.email,
+                "createdAt": "2020-11-21T08:03:26.589Z", 
+                "updatedAt": "2020-11-23T09:30:00Z"
+            }
+            return {
+                ...state,
+                [action.newUserID]: newPersone
+            }
+        }
         default: return state;
     }
 }
 
 export const setContactDate = (userId, newLastname, newFirstname, newPatronymic, newPhone, newEmail) => (
     { type: SET_CONTACT_DATE, userId, newLastname, newFirstname, newPatronymic, newPhone, newEmail }
+)
+export const addNewPersona = (newUserID, lastname, firstname, patronymic, phone, email) => (
+    { type: ADD_NEW_PERSONA, newUserID, lastname, firstname, patronymic, phone, email }
 )
 
 export default contactDetails;
