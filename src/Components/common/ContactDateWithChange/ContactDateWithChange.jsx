@@ -10,9 +10,9 @@ const ContactDateWithChange = (props) => {
                 ? <div>
                     <FormContactDate 
                         setContactDate={props.setContactDate} changeFlag={props.setFlagChangeContactDate}
-                        lastname={props.contacts[props.userIdAgent].lastname} firstname={props.contacts[props.userIdAgent].firstname}
-                        patronymic={props.contacts[props.userIdAgent].patronymic} phone={props.contacts[props.userIdAgent].phone}
-                        email={props.contacts[props.userIdAgent].email} userId={props.userIdAgent}
+                        lastname={props.contacts[props.contactID].lastname} firstname={props.contacts[props.contactID].firstname}
+                        patronymic={props.contacts[props.contactID].patronymic} phone={props.contacts[props.contactID].phone}
+                        email={props.contacts[props.contactID].email} userId={props.contactID}
                     />
                 </div>
                 : <div>

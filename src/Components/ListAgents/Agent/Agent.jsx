@@ -49,7 +49,6 @@ const Agent = (props) => {
 
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
-    let userIdAgent = props.aboutAgent[idAgent].contactId; //id пользователя для контактов
 
     let contactID = props.aboutAgent[idAgent].contactId; //id контакта, нужно для отображения контактной информации
 
@@ -173,7 +172,7 @@ const Agent = (props) => {
                         </div>
                     </div>}
                     <ContactDateWithChange
-                     contacts={props.contacts} userIdAgent={userIdAgent} setContactDate={props.setContactDate}
+                     contacts={props.contacts} setContactDate={props.setContactDate}
                      setFlagChangeContactDate={setFlagChangeContactDate} contactID={contactID} 
                      flagChangeContactDate={flagChangeContactDate} loginId={props.UserId}/>
                 <div>
