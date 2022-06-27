@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Navigate, NavLink } from "react-router-dom";
+import ArrayImgAgent from "../common/ArrayImgAgent/ArrayImgAgent";
 import ContactDateWithChange from "../common/ContactDateWithChange/ContactDateWithChange";
 import GeneralInfoWithForm from "../common/GeneralInfoWithForm/GeneralInfoWithForm";
 
@@ -32,6 +33,11 @@ const Home = (props) => {
                     idAgent={el} setGeneralInfo={props.setGeneralInfo} setFlagChangeGeneralInfo={setFlagChangeGeneralInfo}
                     aboutAgent={props.AboutAgent.pageData} UserId={props.UserId} contactID={props.UserId}
                     flagChangeGeneralInfo={flagChangeGeneralInfo}/>
+                </div>
+                <div>
+                    <ArrayImgAgent 
+                    fotoForPage={props.AboutAgent.photoById} idAgent={el} contactID={props.UserId}
+                    UserId={props.UserId} deleteImgFromPage={props.deleteImgFromPage}/>
                 </div>
             </div>
         );
