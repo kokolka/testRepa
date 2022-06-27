@@ -1,16 +1,20 @@
 import React from "react";
 import s from "./ListAhents.module.css";
-import {NavLink, Outlet} from "react-router-dom";
+import {Navigate, NavLink, Outlet} from "react-router-dom";
 import { connect } from 'react-redux';
 
 const ListAgents = (props) => {
+
+    if(!props.UserId){
+        return <Navigate to="../login"/>; //такой себе путь
+    }
+
     return (
         <div className={s.wrapper_box}>
             <div className={s.wrapper_box__organization}>
                 <div>ЧЕСТНЫЙ АГЕНТ</div>
                 <div>МЕНЕДЖЕР ПРОЦЕССА</div>
                 <NavLink to="agents" >Организации </NavLink>
-                
             </div>
             <div className={s.wrapper_box__listAgents}>
                 <div>

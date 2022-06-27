@@ -139,28 +139,15 @@ const infoAboutOrganization = (state = initialState, action) => {
             return copyState;
         }
         case DELETE_PAGE: {
-            debugger
-            // let newPage = Object.keys(state.pageData).map((el) => {
-            //     if(el !== action.UserId){
-            //         return {...state.pageData[el]};
-            //     }
-            // })
-            // let newPhotoById = Object.keys(state.photoById).map((el) => {
-            //     if(el !== action.UserId){
-            //         return {...state.photoById[el]};
-            //     }
-            // })
-            // debugger
             let copyState ={
                 ...state,
                 pageData: {...state.pageData},
                 photoById: {...state.photoById}
             };
-            debugger
+            
             delete copyState.pageData[action.UserId];
             delete copyState.photoById[action.UserId];
-            debugger
-            return copyState
+            return copyState;
         }
         default: return state;
     }

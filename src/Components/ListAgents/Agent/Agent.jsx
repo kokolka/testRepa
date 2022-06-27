@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, Navigate } from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 import BackArrow from "../../../assets/image/Back arrow.png";
@@ -115,18 +115,22 @@ const Agent = (props) => {
                     {changeDataStile(el.date)}
                 </div>
                 {/* удаление изображения */}
-                <div onClick={() => {
-                    props.deleteImgFromPage(idAgent, el.id);
-                }}>
-                    <img src={DeletePhoto} alt="del" />
-                </div>
+                {contactID == props.UserId
+                    ? <div onClick={() => { props.deleteImgFromPage(idAgent, el.id) }}>
+                        <img src={DeletePhoto} alt="del" />
+                    </div>
+                    : null}
             </div>
         )
     })
 
+    if (!props.UserId) {
+        <Navigate to="login" />
+    }
+
     return (
         <div className={s.page_box}>
-            <HeadPage actionDelete={setFlagDeletePage} />
+            <HeadPage actionDelete={setFlagDeletePage} contactID={contactID} UserId={props.UserId} />
             <div>
                 <div>
                     {flagChangeName == true
@@ -136,11 +140,13 @@ const Agent = (props) => {
                                 name={props.aboutAgent[idAgent].shortName} />
                         </div>
                         : <div>{props.aboutAgent[idAgent].shortName}
-                            <span onClick={() => {
-                                setFlagChangeName(true)
-                            }}>
-                                <img src={ChangeElement} alt="изм." />
-                            </span>
+                            {contactID == props.UserId
+                                ? <span onClick={() => {
+                                    setFlagChangeName(true)
+                                }}>
+                                    <img src={ChangeElement} alt="изм." />
+                                </span>
+                                : null}
                         </div>}
                 </div>
                 {flagChangeGeneralInfo == true
@@ -155,9 +161,11 @@ const Agent = (props) => {
                     </div>
                     : <div>
                         ОБЩАЯ ИНФОРМАЦИЯ
-                        <span onClick={() => { setFlagChangeGeneralInfo(true) }}>
-                            <img src={ChangeElement} alt="изм." />
-                        </span>
+                        {contactID == props.UserId
+                            ? <span onClick={() => { setFlagChangeGeneralInfo(true) }}>
+                                <img src={ChangeElement} alt="изм." />
+                            </span>
+                            : null}
                         <div>
                             <label>Полное название:</label>
                             <span>{`${props.aboutAgent[idAgent].businessEntity} Фирма "${props.aboutAgent[idAgent].shortName}"`}</span>
@@ -186,9 +194,11 @@ const Agent = (props) => {
                     </div>
                     : <div>
                         КОНТАКТНЫЕ ДАННЫЕ
-                        <span onClick={() => { setFlagChangeContactDate(true) }}>
-                            <img src={ChangeElement} alt="изм." />
-                        </span>
+                        {contactID == props.UserId
+                            ? <span onClick={() => { setFlagChangeContactDate(true) }}>
+                                <img src={ChangeElement} alt="изм." />
+                            </span>
+                            : null}
                         <div>
                             <label>ФИО:</label>
                             <span>{`${props.contacts[contactID].lastname} ${props.contacts[contactID].firstname} ${props.contacts[contactID].patronymic}`}</span>
@@ -213,16 +223,16 @@ const Agent = (props) => {
                                 fotoForPage={props.fotoForPage} idAgent={idAgent}
                                 setFlagChangePhoto={setFlagChangePhoto} addPhoto={props.addPhoto}
                             />
-                            : <div onClick={() => {
-                                setFlagChangePhoto(true);
-                            }}>
-                                <span>
-                                    <img src={RegularButton} alt="add" />
-                                </span>
-                                <span>
-                                    ДОБАВИТЬ ИЗОБРАЖЕНИЕ
-                                </span>
-                            </div>}
+                            : contactID == props.UserId
+                                ? <div onClick={() => { setFlagChangePhoto(true) }}>
+                                    <span>
+                                        <img src={RegularButton} alt="add" />
+                                    </span>
+                                    <span>
+                                        ДОБАВИТЬ ИЗОБРАЖЕНИЕ
+                                    </span>
+                                </div>
+                                : null}
                     </div>
                 </div>
             </div>
@@ -247,19 +257,21 @@ const HeadPage = (props) => {//верхний элемент страницы
                 </div>
                 <div className={s.back_text}>К СПИСКУ ЮРИДИЧЕСКИХ ЛИЦ</div>
             </div>
-            <div className={s.head_action_menu}>
-                <div>
-                    <img src={Linked} />
+            {props.contactID == props.UserId
+                ? <div className={s.head_action_menu}>
+                    <div>
+                        <img src={Linked} />
+                    </div>
+                    <div>
+                        <img src={Update} />
+                    </div>
+                    <div onClick={() => {
+                        props.actionDelete(true);
+                    }}>
+                        <img src={DeletePage} />
+                    </div>
                 </div>
-                <div>
-                    <img src={Update} />
-                </div>
-                <div onClick={() => {
-                    props.actionDelete(true);
-                }}>
-                    <img src={DeletePage} />
-                </div>
-            </div>
+                : null}
         </div>
     );
 }

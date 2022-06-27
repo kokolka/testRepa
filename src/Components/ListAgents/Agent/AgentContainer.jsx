@@ -14,7 +14,8 @@ const AgentContainer = (props) => {
 let mstp = (state) => ({
     aboutAgent: state.AboutAgent.pageData,
     fotoForPage: state.AboutAgent.photoById,
-    contacts: state.contacts
+    contacts: state.contacts,
+    UserId: state.appState.UserId      
 })
 
 export default connect(mstp, {
