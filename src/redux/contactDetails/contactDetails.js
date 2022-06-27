@@ -1,4 +1,3 @@
-
 const SET_CONTACT_DATE = 'SET_CONTACT_DATE';
 
 let initialState = {

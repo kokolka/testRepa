@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, NavLink, Navigate } from "react-router-dom";
+import { useParams, NavLink} from "react-router-dom";
 import s from "./Agent.module.css";
 import { getAuthorized, getPageOrganization } from "../../../api/api";
 import BackArrow from "../../../assets/image/Back arrow.png";
@@ -14,6 +14,7 @@ import FormContactDate from "./FormContactDate/FormContactDate";
 import FormName from "./FormName/FormName";
 import FormPhoto from "./FormPhoto/FormPhoto";
 import cn from "classnames";
+import ContactDateWithChange from "../../common/ContactDateWithChange/ContactDateWithChange";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -37,15 +38,7 @@ const dictionary = (word) => { //перевод типа компании на �
     }
 }
 
-const numberChange = (number) => { //преобразование телефонного номера
-    let result = '';
-    if (number[0] == 7) {
-        result = `+${number[0]}`;
-    }
-    result = `${result} (${number.substr(1, 3)}) ${number.substr(4, 3)}-${number.substr(7, 2)}-${number.substr(9, 2)}`;
 
-    return result;
-}
 
 const Agent = (props) => {
     let [flagChangeName, setFlagChangeName] = useState(false); //флаг отвечающий за отображение формы изменения имени фирмы
@@ -56,7 +49,7 @@ const Agent = (props) => {
 
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
-    let userId = props.aboutAgent[idAgent].contactId; //id пользователя для контактов
+    let userIdAgent = props.aboutAgent[idAgent].contactId; //id пользователя для контактов
 
     let contactID = props.aboutAgent[idAgent].contactId; //id контакта, нужно для отображения контактной информации
 
@@ -124,10 +117,6 @@ const Agent = (props) => {
         )
     })
 
-    if (!props.UserId) {
-        <Navigate to="login" />
-    }
-
     return (
         <div className={s.page_box}>
             <HeadPage actionDelete={setFlagDeletePage} contactID={contactID} UserId={props.UserId} />
@@ -183,37 +172,12 @@ const Agent = (props) => {
                             <span>{arrowTypeAgent}</span>
                         </div>
                     </div>}
-                {flagChangeContactDate == true
-                    ? <div>
-                        <FormContactDate
-                            setContactDate={props.setContactDate} changeFlag={setFlagChangeContactDate}
-                            lastname={props.contacts[userId].lastname} firstname={props.contacts[userId].firstname}
-                            patronymic={props.contacts[userId].patronymic} phone={props.contacts[userId].phone}
-                            email={props.contacts[userId].email} userId={userId}
-                        />
-                    </div>
-                    : <div>
-                        КОНТАКТНЫЕ ДАННЫЕ
-                        {contactID == props.UserId
-                            ? <span onClick={() => { setFlagChangeContactDate(true) }}>
-                                <img src={ChangeElement} alt="изм." />
-                            </span>
-                            : null}
-                        <div>
-                            <label>ФИО:</label>
-                            <span>{`${props.contacts[contactID].lastname} ${props.contacts[contactID].firstname} ${props.contacts[contactID].patronymic}`}</span>
-                        </div>
-                        <div>
-                            <label>Телефон:</label>
-                            <span>{numberChange(props.contacts[contactID].phone)}</span>
-                        </div>
-                        <div>
-                            <label>Эл. почта:</label>
-                            <span>{props.contacts[contactID].email}</span>
-                        </div>
-                    </div>}
+                    <ContactDateWithChange
+                     contacts={props.contacts} userIdAgent={userIdAgent} setContactDate={props.setContactDate}
+                     setFlagChangeContactDate={setFlagChangeContactDate} contactID={contactID} 
+                     flagChangeContactDate={flagChangeContactDate} loginId={props.UserId}/>
                 <div>
-                    ПРИЛОЖИТЬ ФОТО
+                    ПРИЛОЖЕННЫЕ ФОТО
                     <div className={s.photo_box}>
                         {arrowImg}
                     </div>

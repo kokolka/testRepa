@@ -23,7 +23,7 @@ const SideMenu = (props) => {
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='find' className={s.sideMenu_box_element}>
+                    <NavLink to='search' className={s.sideMenu_box_element}>
                         <img src={Search} />
                     </NavLink>
                 </div>

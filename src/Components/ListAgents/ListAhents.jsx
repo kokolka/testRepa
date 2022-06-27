@@ -5,10 +5,6 @@ import { connect } from 'react-redux';
 
 const ListAgents = (props) => {
 
-    if(!props.UserId){
-        return <Navigate to="../login"/>; //такой себе путь
-    }
-
     return (
         <div className={s.wrapper_box}>
             <div className={s.wrapper_box__organization}>

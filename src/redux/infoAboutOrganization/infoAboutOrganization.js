@@ -26,13 +26,6 @@ let initialState = {
                 "contractor"
             ],
             "status": "active",
-            "photos": [
-                {
-                    "name": "0b8fc462dcabf7610a91.jpg",
-                    "filepath": "http://135.181.35.61:2112/0b8fc462dcabf7610a91.jpg",
-                    "thumbpath": "http://135.181.35.61:2112/0b8fc462dcabf7610a91_160x160.jpg"
-                }
-            ],
             "createdAt": "2020-11-21T08:03:00Z",
             "updatedAt": "2020-11-23T09:30:00Z"
         },
@@ -50,13 +43,6 @@ let initialState = {
                 "contractor"
             ],
             "status": "active",
-            "photos": [
-                {
-                    "name": "0b8fc462dcabf7610a91.jpg",
-                    "filepath": "http://135.181.35.61:2112/0b8fc462dcabf7610a91.jpg",
-                    "thumbpath": "http://135.181.35.61:2112/0b8fc462dcabf7610a91_160x160.jpg"
-                }
-            ],
             "createdAt": "2020-11-21T08:03:00Z",
             "updatedAt": "2020-11-23T09:30:00Z"
         }
@@ -144,7 +130,7 @@ const infoAboutOrganization = (state = initialState, action) => {
                 pageData: {...state.pageData},
                 photoById: {...state.photoById}
             };
-            
+
             delete copyState.pageData[action.UserId];
             delete copyState.photoById[action.UserId];
             return copyState;

@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 const Login = (props) => {
 
     if(props.appState.UserId){
-        return <Navigate to="../organizations" />;
+        return <Navigate to="../" />;
     }
 
     return (
