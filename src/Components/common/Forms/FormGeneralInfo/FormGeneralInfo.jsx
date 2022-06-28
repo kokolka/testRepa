@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import DeleteElement from '../../../../assets/image/Delete.png';
+import AddElement from '../../../../assets/image/Regular add.png';
 
 const FormGeneralInfo = (props) => {
     let [toggleAdd, setToggleAdd] = useState(false);
@@ -23,7 +25,7 @@ const FormGeneralInfo = (props) => {
                     if (!values.contractNo) {
                         errors.contractNo = 'Обязательно';
                     } else if (values.contractNo.length !== 5) {
-                        errors.contractNo = 'Неправильная код контракта';
+                        errors.contractNo = 'Длина кода равна 5';
                     }
                     if (!values.date) {
                         errors.date = 'Обязательно';
@@ -53,7 +55,9 @@ const FormGeneralInfo = (props) => {
                             <span>{el}</span>
                             <span onClick={() => {
                                 deleteElementArray(el)
-                            }}>{` -D`}</span>
+                            }}>
+                                <img src={DeleteElement} alt="Delete" />
+                                </span>
                         </div>)
                     })
 
@@ -75,7 +79,7 @@ const FormGeneralInfo = (props) => {
                             <div>
                                 <div>Тип юр. лица:</div>
                                 <select name="businessEntity" onChange={p.handleChange} onBlur={p.handleBlur}>
-                                    <option value={p.values.businessEntity} label={p.values.businessEntity}>p.values.businessEntity</option>
+                                    <option value={p.values.businessEntity} label={p.values.businessEntity}>{p.values.businessEntity}</option>
                                     <option value={'ООО'} label={'ООО'}>ООО</option>
                                     <option value={'ИП'} label={'ИП'}>ИП</option>
                                     <option value={'АО'} label={'АО'}>ИП</option>
@@ -103,7 +107,6 @@ const FormGeneralInfo = (props) => {
                                         <select onChange={(e) => {
                                             setToggleAdd(false);
                                             addElementToArrow(e.target.value);
-
                                         }} onBlur={props.handleBlur}>
                                             <option value={''} label={''}></option>
                                             <option value={'agent'} label={'agent'}>agent</option>
@@ -112,7 +115,9 @@ const FormGeneralInfo = (props) => {
                                     </div>
                                     : <div onClick={() => {
                                         setToggleAdd(true)
-                                    }}>+</div>}
+                                    }}>
+                                        <img src={AddElement} alt="add" />
+                                        </div>}
                                 <ErrorMessage name="type" component="div" />
                             </div>
                             <div>

@@ -4,10 +4,18 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 const FormPhoto = (props) => {
     //получения id последней фотографии
     let lastIdPhoto;
-    if(props.fotoForPage[props.idAgent].length === 0){
-        lastIdPhoto = 1;
-    }else{
-        lastIdPhoto = props.fotoForPage[props.idAgent][props.fotoForPage[props.idAgent].length - 1].id;
+    if (props.idAgent == null) {//для режима создания страницы
+        if (props.fotoForPage.length === 0) {
+            lastIdPhoto = 1;
+        } else {
+            lastIdPhoto = props.fotoForPage[props.fotoForPage.length - 1].id;
+        }
+    } else {
+        if (props.fotoForPage[props.idAgent].length === 0) {
+            lastIdPhoto = 1;
+        } else {
+            lastIdPhoto = props.fotoForPage[props.idAgent][props.fotoForPage[props.idAgent].length - 1].id;
+        }
     }
 
     return (
@@ -26,7 +34,11 @@ const FormPhoto = (props) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        props.addPhoto(props.idAgent, values.img, values.id, values.date);
+                        if (props.idAgent == null) {
+                            props.addPhoto(values.img, values.id, values.date); //для создания страницы
+                        } else {
+                            props.addPhoto(props.idAgent, values.img, values.id, values.date);
+                        }
                         props.setFlagChangePhoto(false);
                         setSubmitting(false);
                     }, 400);

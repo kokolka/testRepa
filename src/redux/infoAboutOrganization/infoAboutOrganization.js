@@ -8,6 +8,10 @@ const SET_GENERAL_INFO = 'SET_GENERAL_INFO';
 const SET_NAME = 'SET_NAME';
 const ADD_PHOTO = 'ADD_PHOTO';
 const DELETE_PAGE = 'DELETE_PAGE';
+const ADD_PHOTO_CREATE_PAGE = 'ADD_PHOTO_CREATE_PAGE';
+const DELETE_PHOTO_CREATE_PAGE = 'DELETE_PHOTO_CREATE_PAGE';
+const CLEAR_PHOTO_CREATE_PAGE = 'CLEAR_PHOTO_CREATE_PAGE';
+const CREATE_NEW_PAGE = 'CREATE_NEW_PAGE';
 
 let initialState = {
     pageData: {
@@ -57,7 +61,7 @@ let initialState = {
         ]
     },
     photoForCreatePage: [
-        
+
     ]
 }
 
@@ -90,8 +94,8 @@ const infoAboutOrganization = (state = initialState, action) => {
                 ...state,
                 pageData: { ...state.pageData }
             };
-            copyState.pageData[action.UserId] = {...state.pageData[action.UserId]};
-            copyState.pageData[action.UserId].contract = {...state.pageData[action.UserId].contract};
+            copyState.pageData[action.UserId] = { ...state.pageData[action.UserId] };
+            copyState.pageData[action.UserId].contract = { ...state.pageData[action.UserId].contract };
             copyState.pageData[action.UserId].type = [...state.pageData[action.UserId].type]; //возможно ненужно
             //выше глубокое копирование
             copyState.pageData[action.UserId].shortName = action.newShortName; //установливаю нового короткого имени
@@ -107,38 +111,106 @@ const infoAboutOrganization = (state = initialState, action) => {
                 ...state,
                 pageData: { ...state.pageData }
             };
-            copyState.pageData[action.UserId] = {...state.pageData[action.UserId]};
-            
+            copyState.pageData[action.UserId] = { ...state.pageData[action.UserId] };
+
             copyState.pageData[action.UserId].shortName = action.newName; //изменение короткого имени фирмы
             copyState.pageData[action.UserId].name = `${copyState.pageData[action.UserId].businessEntity} ${action.newName}`; //устанавливаю полное имя компании
             return copyState;
         }
         case ADD_PHOTO: {
             let newElement = {
-                img: action.img, 
-                id: action.id, 
-                date: action.date 
+                img: action.img,
+                id: action.id,
+                date: action.date
             }
 
             let copyState = {
                 ...state,
                 photoById: { ...state.photoById }
             };
-            copyState.photoById[action.UserId] = [...state.photoById[action.UserId], newElement ]
+            copyState.photoById[action.UserId] = [...state.photoById[action.UserId], newElement]
             return copyState;
         }
         case DELETE_PAGE: {
-            let copyState ={
+            let copyState = {
                 ...state,
-                pageData: {...state.pageData},
-                photoById: {...state.photoById}
+                pageData: { ...state.pageData },
+                photoById: { ...state.photoById }
             };
 
             delete copyState.pageData[action.UserId];
             delete copyState.photoById[action.UserId];
-            if(!copyState.pageData[action.UserId]){
+            if (!copyState.pageData[action.UserId]) {
                 debugger
             }
+            return copyState;
+        }
+        case ADD_PHOTO_CREATE_PAGE: {
+            let newPhoto = {
+                img: action.img,
+                id: action.id,
+                date: action.date
+            }
+            return {
+                ...state,
+                photoForCreatePage: [...state.photoForCreatePage, newPhoto]
+            };
+        }
+        case DELETE_PHOTO_CREATE_PAGE: {
+            let copyState = {
+                ...state,
+                photoForCreatePage: { ...state.photoForCreatePage }
+            };
+            copyState.photoForCreatePage = [...state.photoForCreatePage];
+            copyState.photoForCreatePage = state.photoForCreatePage.map(el => {
+                return { img: el.img, id: el.id, date: el.date }
+            });
+            //выше глубокое копирование
+            copyState.photoForCreatePage = copyState.photoForCreatePage
+                .filter(el =>
+                    el.id != action.photoId
+                );
+            return copyState;
+        }
+        case CLEAR_PHOTO_CREATE_PAGE:{
+            debugger
+            return{
+                ...state,
+                photoForCreatePage: []
+            }
+        }
+        case CREATE_NEW_PAGE:{
+            debugger
+            let copyStatePhoto = {
+                ...state,
+                photoForCreatePage: { ...state.photoForCreatePage }
+            };
+            // copyStatePhoto.photoForCreatePage = [...state.photoForCreatePage];
+            // copyStatePhoto.photoForCreatePage = state.photoForCreatePage.map(el => {
+            //     return { img: el.img, id: el.id, date: el.date }
+            // });
+            let copyState = {
+                ...state,
+                pageData: { ...state.pageData },
+                photoById: { ...state.photoById }
+            }
+            // //выше глубокое копирование
+            // copyState.pageData[action.id] = {
+            //     "id": action.id,
+            //     "contactId": action.UserId,
+            //     "name": `${action.businessEntity} Фирма «${action.shortName}»`,
+            //     "shortName": action.shortName,
+            //     "businessEntity": action.businessEntity,
+            //     "contract": {
+            //         "no": action.contractNo,
+            //         "issue_date": "2015-03-12T00:00:00Z"
+            //     },
+            //     "type": action.type,
+            //     "status": "active",
+            //     "createdAt": "2020-11-21T08:03:00Z",
+            //     "updatedAt": "2020-11-23T09:30:00Z"
+            // };
+            copyState.photoById[action.AgentId] = [copyStatePhoto.photoForCreatePage];
             return copyState;
         }
         default: return state;
@@ -147,10 +219,15 @@ const infoAboutOrganization = (state = initialState, action) => {
 
 export const setInfoPage = (id, payload) => ({ type: SET_INFO_PAGE, id, payload });//добавление нового агента
 export const deleteImgFromPage = (UserId, photoId) => ({ type: DELETE_IMG_FROM_PAGE, UserId, photoId }); //удаление фотографии со страницы
-export const setGeneralInfo = (UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType) => 
-({ type: SET_GENERAL_INFO, UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType }); //удаление фотографии со страницы
+export const setGeneralInfo = (UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType) =>
+    ({ type: SET_GENERAL_INFO, UserId, newShortName, newBusinessEntity, newСontractNo, newDate, newType }); //удаление фотографии со страницы
 export const setName = (UserId, newName) => ({ type: SET_NAME, UserId, newName });//изменение имени фирмы
 export const addPhoto = (UserId, img, id, date) => ({ type: ADD_PHOTO, UserId, img, id, date });//добавление изображения
-export const deletePage = (UserId) => ({ type: DELETE_PAGE, UserId});//удаление страницы
+export const deletePage = (UserId) => ({ type: DELETE_PAGE, UserId });//удаление страницы
+export const addPhotoCreatePage = (img, id, date) => ({ type: ADD_PHOTO_CREATE_PAGE, img, id, date });//добавление фотографий при создании страницы
+export const deletePhotoCreatePage = (photoId) => ({ type: DELETE_PHOTO_CREATE_PAGE, photoId });//удаление фотографий при создании страницы
+export const clearPhotoCreatePage = () => ({ type: CLEAR_PHOTO_CREATE_PAGE });//удаление всех фотографий при создании страницы
+export const addNewPage = (id, UserId, shortName, businessEntity, contractNo, type) => 
+({ type: CREATE_NEW_PAGE, id, UserId, shortName, businessEntity, contractNo, type });//создание новой страницы
 
 export default infoAboutOrganization;

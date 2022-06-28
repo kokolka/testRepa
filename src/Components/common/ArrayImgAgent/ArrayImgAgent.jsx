@@ -36,26 +36,47 @@ const ArrayImgAgent = (props) => {
         return `${day} ${month} ${year}`;
     }
 
-    let arrowImg = props.fotoForPage[props.idAgent].map(el => {
-        return (
-            <div key={el.id}>
-                <img src={el.img} />
-                <div>
-                    {splitString(el.img)}
-                </div>
-                <div>
-                    {changeDataStile(el.date)}
-                </div>
-                {/* удаление изображения */}
-                {props.contactID == props.UserId
-                    ? <div onClick={() => { props.deleteImgFromPage(props.idAgent, el.id) }}>
+
+    let arrowImg; //будет содержать массив с разметкой и фотками
+    if (props.idAgent == null) { //если id агента не передали, то мы находимся в режиме создания страницы агента
+        arrowImg = props.fotoForPage.map(el => {
+            return (
+                <div key={el.id}>
+                    <img src={el.img} />
+                    <div>
+                        {splitString(el.img)}
+                    </div>
+                    <div>
+                        {changeDataStile(el.date)}
+                    </div>
+                    {/* удаление изображения в режиме создания страницы*/}
+                    <div onClick={() => { props.deleteImgForCreate(el.id) }}>
                         <img src={DeletePhoto} alt="del" />
                     </div>
-                    : null}
-            </div>
-        )
-    })
-
+                </div>
+            )
+        })
+    } else {
+        arrowImg = props.fotoForPage[props.idAgent].map(el => {
+            return (
+                <div key={el.id}>
+                    <img src={el.img} />
+                    <div>
+                        {splitString(el.img)}
+                    </div>
+                    <div>
+                        {changeDataStile(el.date)}
+                    </div>
+                    {/* удаление изображения */}
+                    {props.contactID == props.UserId
+                        ? <div onClick={() => { props.deleteImgFromPage(props.idAgent, el.id) }}>
+                            <img src={DeletePhoto} alt="del" />
+                        </div>
+                        : null}
+                </div>
+            )
+        })
+    }
     return (
         <div>
             <div className={s.photo_box}>
