@@ -55,7 +55,10 @@ let initialState = {
         13: [
             { img: img3, id: 1, date: '2022-06-24' }
         ]
-    }
+    },
+    photoForCreatePage: [
+        
+    ]
 }
 
 const infoAboutOrganization = (state = initialState, action) => {

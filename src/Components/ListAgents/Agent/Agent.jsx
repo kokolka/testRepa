@@ -6,15 +6,13 @@ import BackArrow from "../../../assets/image/Back arrow.png";
 import DeletePage from "../../../assets/image/Delete page.png";
 import Linked from "../../../assets/image/Linked.png";
 import Update from "../../../assets/image/Update.png";
-import RegularButton from "../../../assets/image/Regular add.png";
 import ChangeElement from "../../../assets/image/Change.png";
-import DeletePhoto from "../../../assets/image/Dalete photo.png";
-import FormName from "./FormName/FormName";
-import FormPhoto from "./FormPhoto/FormPhoto";
+import FormName from "../../common/Forms/FormName/FormName";
 import cn from "classnames";
 import ContactDateWithChange from "../../common/ContactDateWithChange/ContactDateWithChange";
 import GeneralInfoWithForm from "../../common/GeneralInfoWithForm/GeneralInfoWithForm";
 import ArrayImgAgent from "../../common/ArrayImgAgent/ArrayImgAgent";
+import PhotosForPageWithForm from "../../common/PhotosForPageWithForm/PhotosForPageWithForm";
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -30,68 +28,12 @@ let getParam = () => { //получение данных о странице с 
 
 const Agent = (props) => {
     let [flagChangeName, setFlagChangeName] = useState(false); //флаг отвечающий за отображение формы изменения имени фирмы
-    let [flagChangeGeneralInfo, setFlagChangeGeneralInfo] = useState(false); //флаг отвечающий за отображение формы общей информаци
-    let [flagChangeContactDate, setFlagChangeContactDate] = useState(false); //флаг отвечающий за отображение формы контактных данных
-    let [flagChangePhoto, setFlagChangePhoto] = useState(false); //флаг отвечающий за отображение формы загрузки фото
     let [flagDeletePage, setFlagDeletePage] = useState(false); //флаг отвечающий за отображение окна удаления карточки организации
 
     let idAgentWithURL = useParams(); //получение id от url
     let idAgent = idAgentWithURL.id; //нужно для отображения необходимого набора данных
 
     let contactID = props.aboutAgent[idAgent].contactId; //id контакта, нужно для отображения контактной информации
-
-    let splitString = (str) => { //получение название картинки из пути
-        let result;
-        result = str.split('/');
-        result = result[result.length - 1];
-        result = result.split('.');
-        result = `${result[0]}.${result[result.length - 1]}`;
-        return result;
-    }
-
-    let changeDataStile = (date) => { //преобразование даты к типу: "24 июня 2022"
-        let year = date.substr(0, 4);
-        let month = date.substr(5, 2);
-        let day = date.substr(8, 2);
-
-        switch (month) {
-            case '01': month = "января"; break;
-            case '02': month = "февраля"; break;
-            case '03': month = "марта"; break;
-            case '04': month = "апреля"; break;
-            case '05': month = "мая"; break;
-            case '06': month = "июня"; break;
-            case '07': month = "июля"; break;
-            case '08': month = "августа"; break;
-            case '09': month = "сентября"; break;
-            case '10': month = "октября"; break;
-            case '11': month = "ноября"; break;
-            case '12': month = "декабря"; break;
-        }
-
-        return `${day} ${month} ${year}`;
-    }
-
-    //создание массива изображениями + имя изображения + дата загрузки
-    let arrowImg = props.fotoForPage[idAgent].map(el => {
-        return (
-            <div key={el.id}>
-                <img src={el.img} />
-                <div>
-                    {splitString(el.img)}
-                </div>
-                <div>
-                    {changeDataStile(el.date)}
-                </div>
-                {/* удаление изображения */}
-                {contactID == props.UserId
-                    ? <div onClick={() => { props.deleteImgFromPage(idAgent, el.id) }}>
-                        <img src={DeletePhoto} alt="del" />
-                    </div>
-                    : null}
-            </div>
-        )
-    })
 
     return (
         <div className={s.page_box}>
@@ -115,35 +57,20 @@ const Agent = (props) => {
                         </div>}
                 </div>
                 <GeneralInfoWithForm
-                    idAgent={idAgent} setGeneralInfo={props.setGeneralInfo} setFlagChangeGeneralInfo={setFlagChangeGeneralInfo}
-                    aboutAgent={props.aboutAgent} UserId={props.UserId} contactID={contactID}
-                    flagChangeGeneralInfo={flagChangeGeneralInfo}
-                />
+                    idAgent={idAgent} setGeneralInfo={props.setGeneralInfo}
+                    aboutAgent={props.aboutAgent} UserId={props.UserId} contactID={contactID}/>
                 <ContactDateWithChange
                     contacts={props.contacts} setContactDate={props.setContactDate}
-                    setFlagChangeContactDate={setFlagChangeContactDate} contactID={contactID}
-                    flagChangeContactDate={flagChangeContactDate} loginId={props.UserId} />
+                    contactID={contactID} loginId={props.UserId} />
                 <div>
                     ПРИЛОЖЕННЫЕ ФОТО
-                    <ArrayImgAgent 
+                    <ArrayImgAgent
                         fotoForPage={props.fotoForPage} idAgent={idAgent} contactID={contactID}
-                        UserId={props.UserId} deleteImgFromPage={props.deleteImgFromPage}/>
+                        UserId={props.UserId} deleteImgFromPage={props.deleteImgFromPage} />
                     <div>
-                        {flagChangePhoto === true
-                            ? <FormPhoto
-                                fotoForPage={props.fotoForPage} idAgent={idAgent}
-                                setFlagChangePhoto={setFlagChangePhoto} addPhoto={props.addPhoto}
-                            />
-                            : contactID == props.UserId
-                                ? <div onClick={() => { setFlagChangePhoto(true) }}>
-                                    <span>
-                                        <img src={RegularButton} alt="add" />
-                                    </span>
-                                    <span>
-                                        ДОБАВИТЬ ИЗОБРАЖЕНИЕ
-                                    </span>
-                                </div>
-                                : null}
+                        <PhotosForPageWithForm
+                            idAgent={idAgent} fotoForPage={props.fotoForPage} addPhoto={props.addPhoto}
+                            contactID={contactID} UserId={props.UserId} />
                     </div>
                 </div>
             </div>

@@ -1,9 +1,16 @@
-import React from "react";
-import FormGeneralInfo from "../../ListAgents/Agent/FormGeneralInfo/FormGeneralInfo";
+import React, {useState} from "react";
+import FormGeneralInfo from "../Forms/FormGeneralInfo/FormGeneralInfo";
 import ChangeElement from "../../../assets/image/Change.png";
 
 const GeneralInfoWithForm = (props) => {
-    const dataContract = props.aboutAgent[props.idAgent].contract.issue_date;
+    let [flagChangeGeneralInfo, setFlagChangeGeneralInfo] = useState(false); //флаг отвечающий за отображение формы общей информаци
+    
+    let dataContract;
+    if(props.aboutAgent[props.idAgent]){
+        dataContract = props.aboutAgent[props.idAgent].contract.issue_date;
+    }else{
+        dataContract = ''
+    }
 
     const dictionary = (word) => { //перевод типа компании на русский
         switch (word) {
@@ -26,10 +33,10 @@ const GeneralInfoWithForm = (props) => {
 
     return (
         <div>
-            {props.flagChangeGeneralInfo == true
+            {flagChangeGeneralInfo == true
                 ? <div>
                     <FormGeneralInfo
-                        idAgent={props.idAgent} setGeneralInfo={props.setGeneralInfo} changeFlag={props.setFlagChangeGeneralInfo}
+                        idAgent={props.idAgent} setGeneralInfo={props.setGeneralInfo} changeFlag={setFlagChangeGeneralInfo}
                         shortName={props.aboutAgent[props.idAgent].shortName} businessEntity={props.aboutAgent[props.idAgent].businessEntity}
                         contractNo={props.aboutAgent[props.idAgent].contract.no}
                         date={`${dataContract.substr(0, 4)}-${dataContract.substr(5, 2)}-${dataContract.substr(8, 2)}`}
@@ -39,7 +46,7 @@ const GeneralInfoWithForm = (props) => {
                 : <div>
                     ОБЩАЯ ИНФОРМАЦИЯ
                     {props.contactID == props.UserId
-                        ? <span onClick={() => { props.setFlagChangeGeneralInfo(true) }}>
+                        ? <span onClick={() => { setFlagChangeGeneralInfo(true) }}>
                             <img src={ChangeElement} alt="изм." />
                         </span>
                         : null}

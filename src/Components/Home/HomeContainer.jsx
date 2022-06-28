@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Home from "./Home";
 import {setContactDate} from "../../redux/contactDetails/contactDetails";
-import {setGeneralInfo, deleteImgFromPage} from "../../redux/infoAboutOrganization/infoAboutOrganization";
+import {setGeneralInfo, deleteImgFromPage, addPhoto} from "../../redux/infoAboutOrganization/infoAboutOrganization";
 
 const mstp = (state) => ({
     contacts: state.contacts,
@@ -12,5 +12,6 @@ const mstp = (state) => ({
 export default connect(mstp, {
     setContactDate,
     setGeneralInfo,
-    deleteImgFromPage
+    deleteImgFromPage,
+    addPhoto
 })(Home);

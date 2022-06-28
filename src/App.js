@@ -7,6 +7,7 @@ import ListAhentsContainer from './Components/ListAgents/ListAhentsContainer';
 import LoginContainer from './Components/Login/LoginContainer';
 import SideMenuContainer from './Components/Side Menu/SideMenuContainer';
 import HomeContainer from './Components/Home/HomeContainer';
+import CreatePageAgentContainer from './Components/CreatePageAgent/CreatePageAgentContainer';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="setting" element={<div>setting</div>} />
             <Route path="support" element={<div>support</div>} />
             <Route path="login" element={<LoginContainer />} />
+            <Route path="create_page" element={<CreatePageAgentContainer/>} />
           </Routes>
         </div>
       </div>

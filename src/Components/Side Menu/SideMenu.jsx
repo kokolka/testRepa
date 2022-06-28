@@ -42,11 +42,12 @@ const SideMenu = (props) => {
                         <img src={Support} />
                     </NavLink>
                 </div>
-                <div>
+                {props.UserId?<div>
                     <div onClick={props.resetUserId} className={s.sideMenu_box_element}>
                         <img src={Logout} />
                     </div>
                 </div>
+                : null}
             </div>
         </div>
     );
