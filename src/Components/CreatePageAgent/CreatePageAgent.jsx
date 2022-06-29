@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import ArrayImgAgent from "../common/ArrayImgAgent/ArrayImgAgent";
 import PhotosForPageWithForm from "../common/PhotosForPageWithForm/PhotosForPageWithForm";
 import DeleteElement from "../../assets/image/Delete.png";
 import AddElement from "../../assets/image/Regular add.png";
+import BackArrow from "../../assets/image/Back arrow.png";
 
 const CreatePageAgent = (props) => {
     let [toggleAdd, setToggleAdd] = useState(false);
@@ -20,6 +21,13 @@ const CreatePageAgent = (props) => {
 
     return (
         <div>
+            <div onClick={() => {
+                props.clearPhotoCreatePage(); //отчиста временного хранилища фотографий
+            }}>
+                <NavLink to='../'> 
+                    <img src={BackArrow} alt="back" />
+                </NavLink>
+            </div>
             <ArrayImgAgent
                 idAgent={null} fotoForPage={props.AboutAgent.photoForCreatePage}
                 deleteImgForCreate={props.deletePhotoCreatePage} />
@@ -57,7 +65,7 @@ const CreatePageAgent = (props) => {
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
                         props.addNewPage(values.id, values.contactId, values.shortNameAgent, values.businessEntity, values.contractNo, values.type);
-                        props.clearPhotoCreatePage();
+                        props.clearPhotoCreatePage(); //отчиста временного хранилища фотографий
                         toggleFlagRedirect(true);
                         setSubmitting(false);
                     }, 400);
@@ -114,12 +122,12 @@ const CreatePageAgent = (props) => {
                             <ErrorMessage name="contractNo" component="div" />
                         </div>
                         <div>
-                            <div>Дата контракта:</div>
+                            <div>Дата создания фирмы:</div>
                             <Field type="date" name="date" />
                             <ErrorMessage name="date" component="div" />
                         </div>
                         <div>
-                            <div>Тип услуг:</div>
+                            <div>Тип оказываемых услуг:</div>
                             {elementArray}
                             {toggleAdd == true
                                 ? <div>
@@ -136,12 +144,12 @@ const CreatePageAgent = (props) => {
                                 : <div onClick={() => {
                                     setToggleAdd(true)
                                 }}>
-                                    <img src={AddElement} alt="add" />
+                                    Добавить <img src={AddElement} alt="add" />
                                 </div>}
                             <ErrorMessage name="type" component="div" />
                         </div>
                         <button type="submit" disabled={p.isSubmitting}>
-                            Submit
+                            Создать карточку фирмы
                         </button>
                     </Form>
                     )

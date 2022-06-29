@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./ListAhents.module.css";
-import {Navigate, NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import { connect } from 'react-redux';
 
 const ListAgents = (props) => {

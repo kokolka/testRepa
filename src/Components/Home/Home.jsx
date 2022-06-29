@@ -63,7 +63,7 @@ const Home = (props) => {
                     flagChangeContactDate={flagChangeContactDate} loginId={props.UserId} />
             </div>
             <div>
-                <NavLink to='../create_page'>ДОБАВИТЬ СТРАНИЦУ АГЕНТА</NavLink>
+                <NavLink to='create_page'>ДОБАВИТЬ СТРАНИЦУ АГЕНТА</NavLink>
             </div>
             <div>
                 {allPagesAgent}

@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Basement from './Components/Basement/Basement';
 import AgentContainer from './Components/ListAgents/Agent/AgentContainer';
 import ChoiceOfAgentContainer from './Components/ListAgents/ChoiceOfAgent/ChoiceOfAgentContainer';
@@ -18,18 +18,20 @@ function App() {
         </div>
         <div className='app_wrapper'>
           <Routes>
-            <Route path="/" element={<HomeContainer/>} />
+            <Route path="/"  >
+              <Route path="create_page" element={<CreatePageAgentContainer />} />
+              <Route path="" element={<HomeContainer />} />
+            </Route>
             <Route path="organizations" element={<ListAhentsContainer />}>
               <Route path="agents">
                 <Route path="" element={<ChoiceOfAgentContainer />} />
-                <Route path=":id" element={<AgentContainer/>} />
+                <Route path=":id" element={<AgentContainer />} />
               </Route>
             </Route>
             <Route path="search" element={<div>search</div>} />
             <Route path="setting" element={<div>setting</div>} />
             <Route path="support" element={<div>support</div>} />
             <Route path="login" element={<LoginContainer />} />
-            <Route path="create_page" element={<CreatePageAgentContainer/>} />
           </Routes>
         </div>
       </div>
