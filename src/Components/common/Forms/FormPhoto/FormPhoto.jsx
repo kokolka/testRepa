@@ -6,7 +6,7 @@ const FormPhoto = (props) => {
     let lastIdPhoto;
     if (props.idAgent == null) {//для режима создания страницы
         if (props.fotoForPage.length === 0) {
-            lastIdPhoto = 1;
+            lastIdPhoto = 0;
         } else {
             lastIdPhoto = props.fotoForPage[props.fotoForPage.length - 1].id;
         }

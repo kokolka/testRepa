@@ -7,9 +7,14 @@ const ArrayImgAgent = (props) => {
     let splitString = (str) => { //получение название картинки из пути
         let result;
         result = str.split('/');
-        result = result[result.length - 1];
-        result = result.split('.');
-        result = `${result[0]}.${result[result.length - 1]}`;
+        if (result[0] === 'https:' || result[0] === 'http:') { //если изображение получено из url
+            result = result[result.length - 1].split('?');
+            result = result[0];
+        } else {
+            result = result[result.length - 1];
+            result = result.split('.');
+            result = `${result[0]}.${result[result.length - 1]}`;
+        }
         return result;
     }
 

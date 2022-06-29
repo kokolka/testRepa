@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import ArrayImgAgent from "../common/ArrayImgAgent/ArrayImgAgent";
@@ -9,6 +9,7 @@ import AddElement from "../../assets/image/Regular add.png";
 const CreatePageAgent = (props) => {
     let [toggleAdd, setToggleAdd] = useState(false);
     let [changeData, setChangeData] = useState(false);
+    let [flagRedirect, toggleFlagRedirect] = useState(false);
 
     if (!props.UserId) {//редирект на страницу логина, если пользователь не авторизован
         return <Navigate to="../login" />;
@@ -55,16 +56,13 @@ const CreatePageAgent = (props) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        debugger
                         props.addNewPage(values.id, values.contactId, values.shortNameAgent, values.businessEntity, values.contractNo, values.type);
                         props.clearPhotoCreatePage();
-                        //alert(JSON.stringify(values, null, 2));
+                        toggleFlagRedirect(true);
                         setSubmitting(false);
                     }, 400);
-                }}
-            >
+                }}>
                 {(p) => {
-
                     let keys = 0;
 
                     let elementArray = p.values.type.map(el => { //отображение элементов в типе компании
@@ -75,7 +73,7 @@ const CreatePageAgent = (props) => {
                                 deleteElementArray(el)
                             }}>
                                 <img src={DeleteElement} alt="Delete" />
-                                </span>
+                            </span>
                         </div>)
                     })
 
@@ -86,6 +84,11 @@ const CreatePageAgent = (props) => {
                     let addElementToArrow = (el) => {//добавление элементов в типе компании
                         p.values.type.push(el);
                     }
+
+                    if(flagRedirect === true){
+                        return <Navigate to="../login" />;
+                    }
+
                     return (<Form>
                         <div>
                             <div>Название компании:</div>
@@ -134,7 +137,7 @@ const CreatePageAgent = (props) => {
                                     setToggleAdd(true)
                                 }}>
                                     <img src={AddElement} alt="add" />
-                                    </div>}
+                                </div>}
                             <ErrorMessage name="type" component="div" />
                         </div>
                         <button type="submit" disabled={p.isSubmitting}>
