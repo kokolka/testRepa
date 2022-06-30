@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import s from '../FormGeneralInfo/FormGeneralInfo.module.css';
 
 const FormContactDate = (props) => {
     return (
@@ -48,27 +49,27 @@ const FormContactDate = (props) => {
                     return (
                         <Form>
                             <div>
-                                <div>Фамилия:</div>
+                                <div className={s.label}>Фамилия:</div>
                                 <Field type="text" name="lastname" />
                                 <ErrorMessage name="lastname" component="div" />
                             </div>
                             <div>
-                                <div>Имя:</div>
+                                <div className={s.label}>Имя:</div>
                                 <Field type="text" name="firstname" />
                                 <ErrorMessage name="firstname" component="div" />
                             </div>
                             <div>
-                                <div>Отчество:</div>
+                                <div className={s.label}>Отчество:</div>
                                 <Field type="text" name="patronymic" />
                                 <ErrorMessage name="patronymic" component="div" />
                             </div>
                             <div>
-                                <div>Номер телефона:</div>
+                                <div className={s.label}>Номер телефона:</div>
                                 <Field type="tel" name="phone" />
                                 <ErrorMessage name="phone" component="div" />
                             </div>
                             <div>
-                                <div>Эл. почта:</div>
+                                <div className={s.label}>Эл. почта:</div>
                                 <Field type="email" name="email" />
                                 <ErrorMessage name="email" component="div" />
                             </div>

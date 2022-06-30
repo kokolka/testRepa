@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
-import AddAgentPageForm from "../common/AddAgentPageForm/AddAgentPageForm";
+import s from "./Home.module.css";
 import ArrayImgAgent from "../common/ArrayImgAgent/ArrayImgAgent";
 import ContactDateWithChange from "../common/ContactDateWithChange/ContactDateWithChange";
 import GeneralInfoWithForm from "../common/GeneralInfoWithForm/GeneralInfoWithForm";
+import AddElement from "../../assets/image/Regular add.png";
 
 const Home = (props) => {
     let [flagChangeContactDate, setFlagChangeContactDate] = useState(false); //флаг отвечающий за отображение формы контактных данных
@@ -22,16 +23,13 @@ const Home = (props) => {
     }
 
     let lastIdPage; //переменная для хранения id последней страницы
-    const getLastIdPage = () => {
-        let arrayPage = Object.keys(props.AboutAgent.pageData);
-        lastIdPage = arrayPage[arrayPage.length - 1];
-    }
-    getLastIdPage();
+    let arrayPage = Object.keys(props.AboutAgent.pageData);
+    lastIdPage = arrayPage[arrayPage.length - 1];
 
     let allPagesAgent = idPagesAgents.map(el => {
         return (
-            <div key={el}>
-                <div>
+            <div key={el} className={s.page_agent}>
+                <div className={s.page_agent__name}>
                     <NavLink to={`../organizations/agents/${el}`} >
                         {`${props.AboutAgent.pageData[el].name}`}
                     </NavLink>
@@ -52,20 +50,21 @@ const Home = (props) => {
     })
 
     return (
-        <div>
-            <div>
+        <div className={s.main_box}>
+            <div className={s.main_box__yourID}>
                 {`Ваш контактный ID: ${props.UserId}`}
             </div>
-            <div>
+            <div className={s.main_box__contact_date}>
                 <ContactDateWithChange
                     contacts={props.contacts} setContactDate={props.setContactDate}
                     setFlagChangeContactDate={setFlagChangeContactDate} contactID={props.UserId}
                     flagChangeContactDate={flagChangeContactDate} loginId={props.UserId} />
             </div>
-            <div>
+            <div className={s.main_box__add_page}>
+                <span className={s.add_page__img}><img src={AddElement}/></span>
                 <NavLink to='create_page'>ДОБАВИТЬ СТРАНИЦУ АГЕНТА</NavLink>
             </div>
-            <div>
+            <div className={s.main_box__array_page}>
                 {allPagesAgent}
             </div>
         </div>

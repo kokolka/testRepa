@@ -1,0 +1,27 @@
+.main_box{
+    padding: 50px 0 0 50px;
+
+    width: 250px;
+
+    height: 100%;
+}
+.main_box__name{
+    font-size: 30px;
+    font-weight: 700;
+    padding: 0 0 20px 0;
+    text-align: center;
+}
+.main_box__action_box{
+    text-align: center;
+}
+.form_button{
+
+}
+
+.error_field{
+    color: red;
+    border: 1px solid red;
+}
+.error_message{
+    color: red;
+}

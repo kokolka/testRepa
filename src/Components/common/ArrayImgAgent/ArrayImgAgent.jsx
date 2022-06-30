@@ -46,16 +46,17 @@ const ArrayImgAgent = (props) => {
     if (props.idAgent == null) { //если id агента не передали, то мы находимся в режиме создания страницы агента
         arrowImg = props.fotoForPage.map(el => {
             return (
-                <div key={el.id}>
+                <div key={el.id} className={s.photo_element}>
                     <img src={el.img} />
-                    <div>
+                    <div className={s.photo_element__name}>
                         {splitString(el.img)}
                     </div>
-                    <div>
+                    <div className={s.photo_element__date}>
                         {changeDataStile(el.date)}
                     </div>
                     {/* удаление изображения в режиме создания страницы*/}
-                    <div onClick={() => { props.deleteImgForCreate(el.id) }}>
+                    <div className={s.photo_element__delete}
+                        onClick={() => { props.deleteImgForCreate(el.id) }}>
                         <img src={DeletePhoto} alt="del" />
                     </div>
                 </div>
@@ -64,17 +65,18 @@ const ArrayImgAgent = (props) => {
     } else {
         arrowImg = props.fotoForPage[props.idAgent].map(el => {
             return (
-                <div key={el.id}>
+                <div key={el.id} className={s.photo_element}>
                     <img src={el.img} />
-                    <div>
+                    <div className={s.photo_element__name}>
                         {splitString(el.img)}
                     </div>
-                    <div>
+                    <div className={s.photo_element__date}>
                         {changeDataStile(el.date)}
                     </div>
                     {/* удаление изображения */}
                     {props.contactID == props.UserId
-                        ? <div onClick={() => { props.deleteImgFromPage(props.idAgent, el.id) }}>
+                        ? <div className={s.photo_element__delete}
+                            onClick={() => { props.deleteImgFromPage(props.idAgent, el.id) }}>
                             <img src={DeletePhoto} alt="del" />
                         </div>
                         : null}

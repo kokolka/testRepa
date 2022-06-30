@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Navigate } from "react-router-dom";
+import BackArrow from "../../assets/image/Back arrow.png";
+import s from "./Login.module.css";
 
 const Login = (props) => {
     let [alertMessage, setAlertMessage] = useState(''); //если есть ошибка связанная с ID, то она появится в alertMessage
@@ -11,9 +13,17 @@ const Login = (props) => {
     }
 
     return (
-        <div>
-            Login
-            <div>
+        <div className={s.main_box}>
+            {flagRegistrationForm === true
+                ? <div className={s.main_box__name}>
+                    <span onClick={() => {
+                        toggleFlagRegistrationForm(false);
+                    }}>
+                        <img src={BackArrow} alt="back" /></span>
+                    <span>Регистрация</span>
+                </div>
+                : <div className={s.main_box__name}>Авторизация</div>}
+            <div className={s.main_box__action_box}>
                 {flagRegistrationForm === true
                     ? <div>
                         <Formik
@@ -57,13 +67,13 @@ const Login = (props) => {
                                 }, 400);
                             }}
                         >
-                            {({ isSubmitting }) => (
+                            {(p) => (
                                 <Form>
                                     <div>
                                         <div>Ваш ID:</div>
-                                        <Field type="text" name="newUserID" />
-                                        <ErrorMessage name="newUserID" component="div" />
-                                        <div>
+                                        <Field className={(p.errors.newUserID && p.touched.newUserID) ? s.error_field :''} type="text" name="newUserID" />
+                                        <ErrorMessage  className={s.error_message} name="newUserID" component="div" />
+                                        <div className={s.error_message}>
                                             {alertMessage != ''
                                                 ? alertMessage
                                                 : null
@@ -72,36 +82,37 @@ const Login = (props) => {
                                     </div>
                                     <div>
                                         <div>Фамилия:</div>
-                                        <Field type="text" name="lastname" />
-                                        <ErrorMessage name="lastname" component="div" />
+                                        <Field className={(p.errors.lastname && p.touched.lastname) ? s.error_field :''} type="text" name="lastname" />
+                                        <ErrorMessage className={s.error_message} name="lastname" component="div" />
                                     </div>
                                     <div>
                                         <div>Имя:</div>
-                                        <Field type="text" name="firstname" />
-                                        <ErrorMessage name="firstname" component="div" />
+                                        <Field className={(p.errors.firstname && p.touched.firstname) ? s.error_field :''} type="text" name="firstname" />
+                                        <ErrorMessage className={s.error_message} name="firstname" component="div" />
                                     </div>
                                     <div>
                                         <div>Отчество:</div>
-                                        <Field type="text" name="patronymic" />
-                                        <ErrorMessage name="patronymic" component="div" />
+                                        <Field className={(p.errors.patronymic && p.touched.patronymic) ? s.error_field :''} type="text" name="patronymic" />
+                                        <ErrorMessage className={s.error_message} name="patronymic" component="div" />
                                     </div>
                                     <div>
                                         <div>Номер вашего телефона:</div>
-                                        <Field type="tel" name="phone" />
-                                        <ErrorMessage name="phone" component="div" />
+                                        <Field className={(p.errors.phone && p.touched.phone) ? s.error_field :''} type="tel" name="phone" />
+                                        <ErrorMessage className={s.error_message} name="phone" component="div" />
                                     </div>
                                     <div>
                                         <div>Ваш email:</div>
-                                        <Field type="email" name="email" />
-                                        <ErrorMessage name="email" component="div" />
+                                        <Field className={(p.errors.email && p.touched.email) ? s.error_field :''} type="email" name="email" />
+                                        <ErrorMessage className={s.error_message} name="email" component="div" />
                                     </div>
-                                    <button type="submit" disabled={isSubmitting}>
+                                    <button className={s.form_button} type="submit" disabled={p.isSubmitting}>
                                         Регистрация
                                     </button>
                                 </Form>
                             )}
                         </Formik>
                     </div>
+                    // Форма авторизации
                     : <Formik
                         initialValues={{ UserId: '' }}
                         validate={values => {
@@ -123,12 +134,12 @@ const Login = (props) => {
                             }, 400);
                         }}
                     >
-                        {({ isSubmitting }) => (
+                        {(p) => (
                             <Form>
                                 <div>
                                     <div>Введите свой контактный ID</div>
-                                    <Field type="text" name="UserId" />
-                                    <ErrorMessage name="UserId" component="div" />
+                                    <Field className={(p.errors.UserId && p.touched.UserId) ? s.error_field :''} type="text" name="UserId" />
+                                    <ErrorMessage className={s.error_message} name="UserId" component="div" />
                                     <div>
                                         {alertMessage != ''
                                             ? alertMessage
@@ -136,10 +147,10 @@ const Login = (props) => {
                                         }
                                     </div>
                                 </div>
-                                <button type="submit" disabled={isSubmitting}>
+                                <button className={s.form_button} type="submit" disabled={p.isSubmitting}>
                                     Вход
                                 </button>
-                                <button onClick={() => {
+                                <button className={s.form_button} onClick={() => {
                                     toggleFlagRegistrationForm(true);
                                     setAlertMessage('');
                                 }}>

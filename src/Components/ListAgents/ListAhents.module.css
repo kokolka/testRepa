@@ -1,20 +1,72 @@
-.wrapper_box{
+.wrapper_box {
     display: grid;
 
     grid-template-areas:
-    'o c';
+        'o c';
 
     grid-template-columns: 224px 1fr;
 }
-.wrapper_box__organization{
+
+.wrapper_box__organization {
+    z-index: 99;
     grid-area: o;
 
+    text-align: center;
+
     background-color: #F7F7F7;
-    
+
     height: 900px;
     width: 224px;
+
+    box-shadow: inset -15px -1px 2em  rgba(0, 0, 0, 0.342);
 }
-.wrapper_box__listAgents{
+
+.org_box {
+    padding: 20px 42px;
+}
+
+.org_main {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.org_minor {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.link_org {
+    display: flex;
+
+    justify-content: flex-start;
+    align-content: center;
+
+    font-weight: 600;
+    font-size: 14px;
+
+    color: #82B284;
+    text-decoration: none;
+    background: #f7f7f700;
+
+}
+.link_org__action{
+    background-color: #EEEEEE;
+}
+.link_org__img{
+    padding: 13px 13px 13px 16px;
+}
+.link_org__img img{
+    width: 18px;
+    height: 16px;
+}
+.link_org__text{
+    display: grid;
+
+    justify-content: center;
+    align-content: center;
+}
+
+.wrapper_box__listAgents {
     grid-area: c;
 
     height: 900px;

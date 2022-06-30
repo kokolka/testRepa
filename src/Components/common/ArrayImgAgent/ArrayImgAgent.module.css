@@ -1,3 +1,39 @@
 .photo_box{
+    width: 100%;
+
     display: flex;
+    overflow-x:auto;
+}
+
+.photo_element{
+    padding: 0 12px;
+}
+.photo_element img{
+    width: 160px;
+    height: 160px;
+}
+.photo_element__name{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #3B3B3B;
+}
+.photo_element__date{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #808080;
+}
+.photo_element__delete{
+    position: relative;
+
+    top: -185px;
+    left: 130px;
+}
+.photo_element__delete img{
+    width: 20px;
+    height: 20px;
 }

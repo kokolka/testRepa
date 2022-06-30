@@ -1,0 +1,18 @@
+.main_box{
+    padding: 20px;
+}
+.main_box__name{
+    font-size: 16px;
+    font-weight: 700;
+
+    padding: 0 0 20px 0;
+}
+.main_box__element{
+    padding: 20px 0;
+
+}
+.main_box__element a{
+    color: #82B284;
+    font-weight: 500;
+    text-decoration: none;
+}

@@ -1,5 +1,5 @@
 .page_box{
-
+    
 }
 
 .page_box_head{
@@ -20,6 +20,7 @@
     display: flex;
 
     align-items: center;
+    align-content: center;
 }
 .back_arrow{
     height: 14px;
@@ -27,28 +28,113 @@
 
     padding: 0;
 
-    border: 1px solid black;
+    display: flex;
+
+    align-items: center;
+    align-content: center;
 }
 .back_arrow img{
     margin: 0;
     height: 14px;
     /* position: absolute; */
-    border: 1px solid red;
 }
 .back_text{
-    border: 1px solid black;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #82B284;
 }
 .head_action_menu{
     display: flex;
 
-    align-items: center;
+    align-content: center;
 }
-
-
-.photo_box{
+.icon_element{
     display: flex;
+
+    align-items: center;
+
+    padding: 0 14px;
+}
+.icon_element__link img{
+    display: block;
+    height: 8.5px;
+    width: 17px;
+}
+.icon_element__update img{
+    height: 16px;
+    width: 16px;
+}
+.icon_element__delete img{
+    height: 18px;
+    width: 13px;
+}
+/*  */
+.wrapper_box{
+    padding: 24px 0 0 40px;
+}
+.wrapper_box__name{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #222222;
+
+    padding: 0 0 24px 0;
 }
 
+
+.photo_box__name{
+    padding: 0 0 20px 0;
+}
+
+/*  */
+.delete_page_box{
+    position: absolute;
+    
+    left: 50%;
+    top: 50%;
+
+    background-color: #E5E5E5;
+}
 .delete_page_box__hide{
     visibility: hidden;
+}
+
+.delete_page_box__main{
+    padding: 24px;
+}
+.delete_page_box__main__name{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #3B3B3B;
+
+    padding: 0 0 16px 0;
+}
+.delete_page_box__main__text{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3B3B3B;
+
+    padding: 0 0 50px 0;
+}
+.delete_page_box__main__button{
+    display: flex;
+
+    justify-content: space-between;
+    align-content: center;
+}
+.button{
+}
+.button_cancel{
+    color: #B9B9B9;
+}
+.button_delete{
+    
+}
+.button_delete a{
+    color: #82B284;
+    text-decoration: none;
 }

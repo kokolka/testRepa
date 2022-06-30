@@ -13,6 +13,7 @@ import ContactDateWithChange from "../../common/ContactDateWithChange/ContactDat
 import GeneralInfoWithForm from "../../common/GeneralInfoWithForm/GeneralInfoWithForm";
 import ArrayImgAgent from "../../common/ArrayImgAgent/ArrayImgAgent";
 import PhotosForPageWithForm from "../../common/PhotosForPageWithForm/PhotosForPageWithForm";
+import '../../../App.css';
 
 let login = () => { //отправка логина на сервер сразу через API
     getAuthorized('KirillB').then(response => {
@@ -38,17 +39,17 @@ const Agent = (props) => {
     return (
         <div className={s.page_box}>
             <HeadPage actionDelete={setFlagDeletePage} contactID={contactID} UserId={props.UserId} />
-            <div>
-                <div>
+            <div className={s.wrapper_box}>
+                <div className={s.wrapper_box__name}>
                     {flagChangeName == true
                         ? <div>
                             <FormName
                                 idAgent={idAgent} changeFlag={setFlagChangeName} setName={props.setName}
                                 name={props.aboutAgent[idAgent].shortName} />
                         </div>
-                        : <div>{props.aboutAgent[idAgent].shortName}
+                        : <div>{props.aboutAgent[idAgent].shortName} 
                             {contactID == props.UserId
-                                ? <span onClick={() => {
+                                ? <span className='img_change' onClick={() => {
                                     setFlagChangeName(true)
                                 }}>
                                     <img src={ChangeElement} alt="изм." />
@@ -62,8 +63,8 @@ const Agent = (props) => {
                 <ContactDateWithChange
                     contacts={props.contacts} setContactDate={props.setContactDate}
                     contactID={contactID} loginId={props.UserId} />
-                <div>
-                    ПРИЛОЖЕННЫЕ ФОТО
+                <div className={s.photo_box}>
+                    <div className={s.photo_box__name}>ПРИЛОЖЕННЫЕ ФОТО</div>
                     <ArrayImgAgent
                         fotoForPage={props.fotoForPage} idAgent={idAgent} contactID={contactID}
                         UserId={props.UserId} deleteImgFromPage={props.deleteImgFromPage} />
@@ -97,13 +98,13 @@ const HeadPage = (props) => {//верхний элемент страницы
             </div>
             {props.contactID == props.UserId
                 ? <div className={s.head_action_menu}>
-                    <div>
+                    <div className={`${s.icon_element__link} ${s.icon_element}`}>
                         <img src={Linked} />
                     </div>
-                    <div>
+                    <div className={`${s.icon_element__update} ${s.icon_element}`}>
                         <img src={Update} />
                     </div>
-                    <div onClick={() => {
+                    <div className={`${s.icon_element__delete} ${s.icon_element}`} onClick={() => {
                         props.actionDelete(true);
                     }}>
                         <img src={DeletePage} />
@@ -116,14 +117,14 @@ const HeadPage = (props) => {//верхний элемент страницы
 
 const DeleteAgentPageElement = (props) => { //окно для подтверждения удаления страницы
     return (
-        <div>
-            <div>Удалить каточку</div>
-            <div>Отправить каточку организации в архив?</div>
-            <div>
-                <div onClick={() => {
+        <div className={s.delete_page_box__main}>
+            <div className={s.delete_page_box__main__name}>Удалить каточку</div>
+            <div className={s.delete_page_box__main__text}>Отправить каточку организации в архив?</div>
+            <div className={s.delete_page_box__main__button}>
+                <div className={`${s.button_cancel} ${s.button}`} onClick={() => {
                     props.actionDelete(false);
                 }}>ОТМЕНА</div>
-                <div onClick={() => {
+                <div className={`${s.button_delete} ${s.button}`} onClick={() => {
                     props.deletePage(props.idAgent);
                 }}>
                     <NavLink to='../'>

@@ -1,0 +1,22 @@
+
+
+.element_type{
+    display: flex;
+
+    align-content: center;
+
+    padding: 5px 0;
+}
+.element_type__text{
+    padding: 0 10px 0 0;
+}
+.element_type__img{
+
+}
+
+.label{
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+
+}
