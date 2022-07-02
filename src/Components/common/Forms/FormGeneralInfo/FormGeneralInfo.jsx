@@ -8,12 +8,36 @@ const FormGeneralInfo = (props) => {
     let [toggleAdd, setToggleAdd] = useState(false);
     let [changeData, setChangeData] = useState(false);
 
+    const translator = (word) => { //перевод типа компании на русский
+        switch (word) {
+            case "Агент":
+                return ("agent");
+            case "Подрядчик":
+                return ("contractor");
+            default: return ("");
+        }
+    }
+
+    const dictionary = (word) => { //перевод типа компании на русский
+        switch (word) {
+            case "agent":
+                return ("Агент");
+            case "contractor":
+                return ("Подрядчик");
+            default: return ("");
+        }
+    }
+
+    let typeArray = props.type.map(el => { //костыль для певода значений на английский
+        return dictionary(el);
+    })
+
     return (
         <div>
             <Formik
                 initialValues={{
                     shortNameAgent: props.shortName, businessEntity: props.businessEntity,
-                    contractNo: props.contractNo, date: props.date, type: props.type
+                    contractNo: props.contractNo, date: props.date, type: typeArray
                 }}
                 validate={values => {
                     const errors = {};
@@ -38,6 +62,9 @@ const FormGeneralInfo = (props) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
+                        values.type = values.type.map(el => { //костыль для певода значений на английский
+                            return translator(el);
+                        })
                         props.setGeneralInfo(
                             props.idAgent, values.shortNameAgent, values.businessEntity,
                             values.contractNo, values.date, values.type
@@ -110,8 +137,8 @@ const FormGeneralInfo = (props) => {
                                             addElementToArrow(e.target.value);
                                         }} onBlur={props.handleBlur}>
                                             <option value={''} label={''}></option>
-                                            <option value={'agent'} label={'agent'}>agent</option>
-                                            <option value={'contractor'} label={'contractor'}>contractor</option>
+                                            <option value={'Агент'} label={'Агент'}>Агент</option>
+                                            <option value={'Подрядчик'} label={'Подрядчик'}>Подрядчик</option>
                                         </select>
                                     </div>
                                     : <div onClick={() => {

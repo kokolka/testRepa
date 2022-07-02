@@ -21,6 +21,16 @@ const CreatePageAgent = (props) => {
     let arrayPages = Object.keys(props.AboutAgent.pageData);
     let lastIdPage = arrayPages[arrayPages.length - 1]; //получение последнего ID страницы агента
 
+    const translator = (word) => { //перевод типа компании на русский
+        switch (word) {
+            case "Агент":
+                return ("agent");
+            case "Подрядчик":
+                return ("contractor");
+            default: return ("");
+        }
+    }
+
     return (
         <div className={s.main_box}>
             <div className={s.main_box__back_link} onClick={() => {
@@ -67,7 +77,12 @@ const CreatePageAgent = (props) => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        props.addNewPage(values.id, values.contactId, values.shortNameAgent, values.businessEntity, values.contractNo, values.type);
+                        values.type = values.type.map(el => { //костыль для певода значений на английский
+                            return translator(el);
+                        })
+                        props.addNewPage(
+                            values.id, values.contactId, values.shortNameAgent, 
+                            values.businessEntity, values.contractNo, values.type);
                         props.clearPhotoCreatePage(); //отчиста временного хранилища фотографий
                         toggleFlagRedirect(true);
                         setSubmitting(false);
@@ -140,8 +155,8 @@ const CreatePageAgent = (props) => {
 
                                     }} onBlur={props.handleBlur}>
                                         <option value={''} label={''}></option>
-                                        <option value={'agent'} label={'agent'}>agent</option>
-                                        <option value={'contractor'} label={'contractor'}>contractor</option>
+                                        <option value={'Агент'} label={'Агент'}>Агент</option>
+                                        <option value={'Подрядчик'} label={'Подрядчик'}>Подрядчик</option>
                                     </select>
                                 </div>
                                 : <div className={s.button} onClick={() => {

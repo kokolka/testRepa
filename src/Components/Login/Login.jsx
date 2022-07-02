@@ -16,7 +16,7 @@ const Login = (props) => {
         <div className={s.main_box}>
             {flagRegistrationForm === true
                 ? <div className={s.main_box__name}>
-                    <span onClick={() => {
+                    <span className={s.main_box__img} onClick={() => {
                         toggleFlagRegistrationForm(false);
                     }}>
                         <img src={BackArrow} alt="back" /></span>
@@ -71,8 +71,8 @@ const Login = (props) => {
                                 <Form>
                                     <div>
                                         <div>Ваш ID:</div>
-                                        <Field className={(p.errors.newUserID && p.touched.newUserID) ? s.error_field :''} type="text" name="newUserID" />
-                                        <ErrorMessage  className={s.error_message} name="newUserID" component="div" />
+                                        <Field className={(p.errors.newUserID && p.touched.newUserID) ? s.error_field : ''} type="text" name="newUserID" />
+                                        <ErrorMessage className={s.error_message} name="newUserID" component="div" />
                                         <div className={s.error_message}>
                                             {alertMessage != ''
                                                 ? alertMessage
@@ -82,27 +82,27 @@ const Login = (props) => {
                                     </div>
                                     <div>
                                         <div>Фамилия:</div>
-                                        <Field className={(p.errors.lastname && p.touched.lastname) ? s.error_field :''} type="text" name="lastname" />
+                                        <Field className={(p.errors.lastname && p.touched.lastname) ? s.error_field : ''} type="text" name="lastname" />
                                         <ErrorMessage className={s.error_message} name="lastname" component="div" />
                                     </div>
                                     <div>
                                         <div>Имя:</div>
-                                        <Field className={(p.errors.firstname && p.touched.firstname) ? s.error_field :''} type="text" name="firstname" />
+                                        <Field className={(p.errors.firstname && p.touched.firstname) ? s.error_field : ''} type="text" name="firstname" />
                                         <ErrorMessage className={s.error_message} name="firstname" component="div" />
                                     </div>
                                     <div>
                                         <div>Отчество:</div>
-                                        <Field className={(p.errors.patronymic && p.touched.patronymic) ? s.error_field :''} type="text" name="patronymic" />
+                                        <Field className={(p.errors.patronymic && p.touched.patronymic) ? s.error_field : ''} type="text" name="patronymic" />
                                         <ErrorMessage className={s.error_message} name="patronymic" component="div" />
                                     </div>
                                     <div>
                                         <div>Номер вашего телефона:</div>
-                                        <Field className={(p.errors.phone && p.touched.phone) ? s.error_field :''} type="tel" name="phone" />
+                                        <Field className={(p.errors.phone && p.touched.phone) ? s.error_field : ''} type="tel" name="phone" />
                                         <ErrorMessage className={s.error_message} name="phone" component="div" />
                                     </div>
                                     <div>
                                         <div>Ваш email:</div>
-                                        <Field className={(p.errors.email && p.touched.email) ? s.error_field :''} type="email" name="email" />
+                                        <Field className={(p.errors.email && p.touched.email) ? s.error_field : ''} type="email" name="email" />
                                         <ErrorMessage className={s.error_message} name="email" component="div" />
                                     </div>
                                     <button className={s.form_button} type="submit" disabled={p.isSubmitting}>
@@ -136,9 +136,9 @@ const Login = (props) => {
                     >
                         {(p) => (
                             <Form>
-                                <div>
+                                <div className={s.field}>
                                     <div>Введите свой контактный ID</div>
-                                    <Field className={(p.errors.UserId && p.touched.UserId) ? s.error_field :''} type="text" name="UserId" />
+                                    <Field className={(p.errors.UserId && p.touched.UserId) ? s.error_field : ''} type="text" name="UserId" />
                                     <ErrorMessage className={s.error_message} name="UserId" component="div" />
                                     <div>
                                         {alertMessage != ''
@@ -147,15 +147,17 @@ const Login = (props) => {
                                         }
                                     </div>
                                 </div>
-                                <button className={s.form_button} type="submit" disabled={p.isSubmitting}>
-                                    Вход
-                                </button>
-                                <button className={s.form_button} onClick={() => {
-                                    toggleFlagRegistrationForm(true);
-                                    setAlertMessage('');
-                                }}>
-                                    Регистрация
-                                </button>
+                                <div className={s.buttons}>
+                                    <button className={s.form_button} type="submit" disabled={p.isSubmitting}>
+                                        Вход
+                                    </button>
+                                    <button className={s.form_button} onClick={() => {
+                                        toggleFlagRegistrationForm(true);
+                                        setAlertMessage('');
+                                    }}>
+                                        Регистрация
+                                    </button>
+                                </div>
                             </Form>
                         )}
                     </Formik>}

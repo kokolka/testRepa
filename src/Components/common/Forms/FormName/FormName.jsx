@@ -1,5 +1,7 @@
-import React from "react";
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import s from '../FormGeneralInfo/FormGeneralInfo.module.css';
+
 
 const FormName = (props) => {
     return (
@@ -25,7 +27,7 @@ const FormName = (props) => {
                     return (
                         <Form>
                             <div>
-                                <div>Название фирмы:</div>
+                                <div className={s.label}>Название фирмы:</div>
                                 <Field type="text" name="name" />
                                 <ErrorMessage name="name" component="div" />
                             </div>

@@ -13,17 +13,17 @@ const SideMenu = (props) => {
         <div className={s.sideMenu_box}>
             <div>
                 <div>
-                    <NavLink to='/' className={s.sideMenu_box_element}>
+                    <NavLink to='/' className={e => e.isActive ? s.active: s.sideMenu_box_element}>
                         <img src={Home} />
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='organizations' className={s.sideMenu_box_element}>
+                    <NavLink to='organizations' className={e => e.isActive ? s.active: s.sideMenu_box_element}>
                         <img src={Agents} />
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='search' className={s.sideMenu_box_element}>
+                    <NavLink to='search' className={e => e.isActive ? s.active: s.sideMenu_box_element}>
                         <img src={Search} />
                     </NavLink>
                 </div>
@@ -33,12 +33,12 @@ const SideMenu = (props) => {
             </div>
             <div>
                 <div>
-                    <NavLink to='setting' className={s.sideMenu_box_element}>
+                    <NavLink to='setting' className={e => e.isActive ? s.active: s.sideMenu_box_element}>
                         <img src={Setting} />
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='support' className={s.sideMenu_box_element}>
+                    <NavLink to='support' className={e => e.isActive ? s.active: s.sideMenu_box_element}>
                         <img src={Support} />
                     </NavLink>
                 </div>

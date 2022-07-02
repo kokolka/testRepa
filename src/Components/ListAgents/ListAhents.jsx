@@ -27,9 +27,11 @@ const ListAgents = (props) => {
                         Организации
                     </div>
                 </NavLink>
+                {/* div для тени */}
+                <div className={s.shadow_box}></div>
             </div>
             <div className={s.wrapper_box__listAgents}>
-                <div>
+                <div className={s.wrapper_box__agent_element}>
                     <Outlet {...props} />
                 </div>
             </div>

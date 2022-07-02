@@ -17,8 +17,6 @@
 
     height: 900px;
     width: 224px;
-
-    box-shadow: inset -15px -1px 2em  rgba(0, 0, 0, 0.342);
 }
 
 .org_box {
@@ -26,16 +24,36 @@
 }
 
 .org_main {
+    width: 140px;
+    height: 26px;
+
     font-size: 16px;
     font-weight: 700;
+
+    padding: 0 0 2px 0;
 }
 
 .org_minor {
     font-weight: 400;
     font-size: 12px;
+
+    width: 140px;
+    height: 19px;
 }
 
-.link_org {
+.shadow_box{
+    float: right;
+
+    position: relative;
+    top: -131px;
+    width: 21px;
+    height: 900px;
+
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.072) 0%, rgba(255, 255, 255, 0) 100%);
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.link_org{
     display: flex;
 
     justify-content: flex-start;
@@ -48,6 +66,8 @@
     text-decoration: none;
     background: #f7f7f700;
 
+    width: 224px;
+    height: 44px;
 }
 .link_org__action{
     background-color: #EEEEEE;
@@ -70,4 +90,9 @@
     grid-area: c;
 
     height: 900px;
+}
+.wrapper_box__agent_element{
+    height: 900px;
+
+    overflow-y: auto;
 }

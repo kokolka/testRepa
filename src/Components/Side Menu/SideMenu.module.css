@@ -1,3 +1,18 @@
+.active{
+    background-color: #A4C7A5;
+
+    display: flex;
+
+    height: 61px;
+
+    justify-content: center;
+    align-items: center;
+}
+.active img{
+    width: 19px;
+    height: 19px;
+}
+
 .sideMenu_box{
     width: 48px;
     height: 900px;
@@ -19,7 +34,12 @@
     justify-content: center;
     align-items: center;
 }
+.sideMenu_box_element:hover{
+    background-color: rgba(152, 196, 154, 0.816)
+}
+
 .sideMenu_box_element img{
     width: 19px;
     height: 19px;
 }
+

@@ -1,5 +1,4 @@
 .page_box{
-    
 }
 
 .page_box_head{
@@ -57,14 +56,38 @@
 
     padding: 0 14px;
 }
+.icon_element__link{
+    height: 72px;
+}
+.icon_element__link:hover{
+    background-color: #dfdbdb;
+}
+.icon_element__link:active{
+    background-color: #c7c6c6;
+}
 .icon_element__link img{
     display: block;
     height: 8.5px;
     width: 17px;
 }
+.icon_element__update{
+    height: 72px;
+}
+.icon_element__update:hover{
+    background-color: #dfdbdb;
+}
+.icon_element__update:active{
+    background-color: #c7c6c6;
+}
 .icon_element__update img{
     height: 16px;
     width: 16px;
+}
+.icon_element__delete:hover{
+    background-color: #dfdbdb;
+}
+.icon_element__delete:active{
+    background-color: #c7c6c6;
 }
 .icon_element__delete img{
     height: 18px;
@@ -137,4 +160,10 @@
 .button_delete a{
     color: #82B284;
     text-decoration: none;
+}
+
+
+.end_line{
+    margin: 32px 0 0 0;
+    border-bottom: 1px solid #E5E5E5;
 }

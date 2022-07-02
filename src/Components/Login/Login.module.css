@@ -11,8 +11,20 @@
     padding: 0 0 20px 0;
     text-align: center;
 }
+.main_box__img{
+    padding: 0 10px 0 0;
+}
 .main_box__action_box{
     text-align: center;
+}
+
+.field{
+    padding: 10px 0;
+}
+.buttons{
+    display: flex;
+
+    justify-content: space-evenly;
 }
 .form_button{
 

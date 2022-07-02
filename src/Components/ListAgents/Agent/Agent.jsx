@@ -74,6 +74,7 @@ const Agent = (props) => {
                             contactID={contactID} UserId={props.UserId} />
                     </div>
                 </div>
+                <div className={s.end_line}></div>
             </div>
             <div className={cn(s.delete_page_box, { [s.delete_page_box__hide]: (flagDeletePage === false) })}>
                 <DeleteAgentPageElement

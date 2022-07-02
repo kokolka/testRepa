@@ -101,7 +101,7 @@ const infoAboutOrganization = (state = initialState, action) => {
             //выше глубокое копирование
             copyState.pageData[action.UserId].shortName = action.newShortName; //установливаю нового короткого имени
             copyState.pageData[action.UserId].businessEntity = action.newBusinessEntity; //устнавливаю тип юр лица
-            copyState.pageData[action.UserId].name = `${action.newBusinessEntity} ${action.newShortName}`; //устанавливаю полное имя компании
+            copyState.pageData[action.UserId].name = `${action.newBusinessEntity} Фирма «${action.newShortName}»`; //устанавливаю полное имя компании
             copyState.pageData[action.UserId].contract.no = action.newСontractNo; //устнавливаю договор
             copyState.pageData[action.UserId].contract.issue_date = action.newDate; //устнавливаю дата договора
             copyState.pageData[action.UserId].type = action.newType; //устнавливаю типа услуг
@@ -115,7 +115,7 @@ const infoAboutOrganization = (state = initialState, action) => {
             copyState.pageData[action.UserId] = { ...state.pageData[action.UserId] };
 
             copyState.pageData[action.UserId].shortName = action.newName; //изменение короткого имени фирмы
-            copyState.pageData[action.UserId].name = `${copyState.pageData[action.UserId].businessEntity} ${action.newName}`; //устанавливаю полное имя компании
+            copyState.pageData[action.UserId].name = `${copyState.pageData[action.UserId].businessEntity} Фирма «${action.newName}»`; //устанавливаю полное имя компании
             return copyState;
         }
         case ADD_PHOTO: {

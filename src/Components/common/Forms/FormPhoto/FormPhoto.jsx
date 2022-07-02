@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import s from '../FormGeneralInfo/FormGeneralInfo.module.css';
 
 const FormPhoto = (props) => {
     //получения id последней фотографии
@@ -48,16 +49,19 @@ const FormPhoto = (props) => {
                     return (
                         <Form>
                             <div>
-                                <div>URL изображения:</div>
+                                <div className={s.label}>URL изображения:</div>
                                 <Field type="text" name="img" />
                                 <ErrorMessage name="img" component="div" />
                             </div>
                             <div>
-                                <div>Дата загрузки:</div>
+                                <div className={s.label}>Дата загрузки:</div>
                                 <Field type="date" name="date" />
                                 <ErrorMessage name="date" component="div" />
                             </div>
                             <div>
+                                <button onClick={() => {props.setFlagChangePhoto(false)}}>
+                                    Отмена
+                                </button>
                                 <button type="submit" disabled={p.isSubmitting}>
                                     Отправить
                                 </button>
