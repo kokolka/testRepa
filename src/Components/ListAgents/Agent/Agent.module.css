@@ -3,9 +3,7 @@
 
 .page_box_head{
     height: 72px;
-    width: 1168px;
-
-    padding: 0 0 0 42px;
+    width: 100%;
 
     display: flex;
 
@@ -25,7 +23,7 @@
     height: 14px;
     width: 34px;
 
-    padding: 0;
+    padding: 0 0 0 42px;
 
     display: flex;
 
@@ -35,7 +33,6 @@
 .back_arrow img{
     margin: 0;
     height: 14px;
-    /* position: absolute; */
 }
 .back_text{
     font-weight: 600;
@@ -48,6 +45,8 @@
     display: flex;
 
     align-content: center;
+
+    float: right;
 }
 .icon_element{
     display: flex;

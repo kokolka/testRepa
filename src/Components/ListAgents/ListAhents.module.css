@@ -1,21 +1,24 @@
 .wrapper_box {
+    min-height: 100%;
+
     display: grid;
 
     grid-template-areas:
         'o c';
 
     grid-template-columns: 224px 1fr;
+    grid-template-rows: 100%;
 }
 
 .wrapper_box__organization {
-    z-index: 99;
     grid-area: o;
 
     text-align: center;
 
     background-color: #F7F7F7;
 
-    height: 900px;
+    /* height: 900px; */
+    height: 100%;
     width: 224px;
 }
 
@@ -47,7 +50,8 @@
     position: relative;
     top: -131px;
     width: 21px;
-    height: 900px;
+    /* height: 900px; */
+    height: 100%;
 
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.072) 0%, rgba(255, 255, 255, 0) 100%);
     transform: matrix(-1, 0, 0, 1, 0, 0);
@@ -89,10 +93,12 @@
 .wrapper_box__listAgents {
     grid-area: c;
 
-    height: 900px;
+    /* height: 900px; */
+    height: 100%;
 }
 .wrapper_box__agent_element{
-    height: 900px;
+    /* height: 900px; */
+    height: 100%;
 
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }

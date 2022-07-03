@@ -15,7 +15,7 @@
 
 .sideMenu_box{
     width: 48px;
-    height: 900px;
+    min-height: 100%;
 
     background-color: #82B284;
 
@@ -43,3 +43,6 @@
     height: 19px;
 }
 
+.sideMenu_box__void_element{
+    min-height: 300px;
+}

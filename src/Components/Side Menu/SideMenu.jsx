@@ -28,7 +28,7 @@ const SideMenu = (props) => {
                     </NavLink>
                 </div>
             </div>
-            <div>
+            <div className={s.sideMenu_box__void_element}>
 
             </div>
             <div>

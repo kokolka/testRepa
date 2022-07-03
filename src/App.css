@@ -1,6 +1,6 @@
 .App {
-  width: 1440px;
-  height: 1028px;
+  max-width: 1440px;
+  max-height: 1028px;
 }
 
 .app_content {
@@ -9,6 +9,7 @@
     'n c';
 
   grid-template-columns: 48px 1fr;
+  grid-template-rows: 1fr;
 }
 
 .app_navbar {

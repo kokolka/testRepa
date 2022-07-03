@@ -97,6 +97,7 @@ const HeadPage = (props) => {//верхний элемент страницы
                 </div>
                 <div className={s.back_text}>К СПИСКУ ЮРИДИЧЕСКИХ ЛИЦ</div>
             </div>
+            <div>
             {props.contactID == props.UserId
                 ? <div className={s.head_action_menu}>
                     <div className={`${s.icon_element__link} ${s.icon_element}`}>
@@ -112,6 +113,7 @@ const HeadPage = (props) => {//верхний элемент страницы
                     </div>
                 </div>
                 : null}
+            </div>
         </div>
     );
 }
