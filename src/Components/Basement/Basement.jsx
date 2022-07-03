@@ -13,7 +13,10 @@ const Basement = () => {
         <div className={s.basement_box}>
             <div className={s.basement_box__text_box}>
                 <div>
-                    {`'C' ${initialData.yearOfFoundation}-${initialData.thisYear} ${initialData.companyName} 'С' Все права защищены`}
+                    <span>&copy;</span>
+                    <span>{`${initialData.yearOfFoundation}-${initialData.thisYear} ${initialData.companyName} `}</span>
+                    <span>&copy;</span>
+                    <span>{` Все права защищены`}</span>
                 </div>
                 <div>
                     {initialData.phoneNumber}

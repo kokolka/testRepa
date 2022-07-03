@@ -8,6 +8,8 @@
 
     grid-template-columns: 224px 1fr;
     grid-template-rows: 100%;
+
+    border: 1px solid black;
 }
 
 .wrapper_box__organization {
@@ -16,9 +18,7 @@
     text-align: center;
 
     background-color: #F7F7F7;
-
-    /* height: 900px; */
-    height: 100%;
+    min-height: 100%;
     width: 224px;
 }
 
@@ -50,7 +50,6 @@
     position: relative;
     top: -131px;
     width: 21px;
-    /* height: 900px; */
     height: 100%;
 
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.072) 0%, rgba(255, 255, 255, 0) 100%);
@@ -92,13 +91,40 @@
 
 .wrapper_box__listAgents {
     grid-area: c;
-
-    /* height: 900px; */
     height: 100%;
 }
 .wrapper_box__agent_element{
-    /* height: 900px; */
     height: 100%;
+}
 
-    /* overflow-y: auto; */
+
+.mode_visible_off{
+    display: none;
+    /* visibility: hidden; */
+}
+
+.mode_visible_off__content{
+    display: none;
+}
+
+
+@media (max-width: 700px){
+    .wrapper_box {
+        
+        display: block;
+    
+        /* grid-template-areas:
+            'o c';
+    
+        grid-template-columns: 224px 1fr;
+        grid-template-rows: 100%; */
+    }
+
+    .wrapper_box .wrapper_box__organization{
+        min-height: 100%;
+
+        width: 100%;
+
+        border: 1px solid black;
+    }
 }

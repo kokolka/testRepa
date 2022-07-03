@@ -9,7 +9,19 @@ import SideMenuContainer from './Components/Side Menu/SideMenuContainer';
 import HomeContainer from './Components/Home/HomeContainer';
 import CreatePageAgentContainer from './Components/CreatePageAgent/CreatePageAgentContainer';
 
-function App() {
+import { connect } from 'react-redux';
+import {setSizeApp} from './redux/appState/appState';
+
+function App(props) {
+
+  const reSize = () => { //функция для изменения размера root элемента в state
+    if (props.sizeApp != document.getElementById('root').offsetWidth) { //проверка, изменился ли азмер экрана
+      props.setSizeApp(document.getElementById('root').offsetWidth);
+    }
+  }
+
+  new ResizeObserver(reSize).observe(document.getElementById('root')); //подписывание на изменение размера экрана
+
   return (
     <div className="App">
       <div className='app_content'>
@@ -45,4 +57,10 @@ function App() {
   );
 }
 
-export default App;
+const mstp = (state) => ({
+  sizeApp: state.appState.sizeApp
+})
+
+export default connect(mstp, {
+  setSizeApp
+})(App);
