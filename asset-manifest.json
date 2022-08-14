@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/testRepa/static/css/main.e036b5d3.css",
-    "main.js": "/testRepa/static/js/main.acf64b3f.js",
+    "main.css": "/testRepa/static/css/main.2d71f418.css",
+    "main.js": "/testRepa/static/js/main.9ae079d2.js",
     "static/js/787.af04e08f.chunk.js": "/testRepa/static/js/787.af04e08f.chunk.js",
     "static/media/Безымянный.png": "/testRepa/static/media/Безымянный.07aa606a9d8d3e9f238d.png",
     "static/media/Безымянный1.png": "/testRepa/static/media/Безымянный1.caa37a1f9f8806424198.png",
     "static/media/эко1.jpg": "/testRepa/static/media/эко1.ed5f2d184eb5ceccd7f0.jpg",
     "index.html": "/testRepa/index.html",
-    "main.e036b5d3.css.map": "/testRepa/static/css/main.e036b5d3.css.map",
-    "main.acf64b3f.js.map": "/testRepa/static/js/main.acf64b3f.js.map",
+    "main.2d71f418.css.map": "/testRepa/static/css/main.2d71f418.css.map",
+    "main.9ae079d2.js.map": "/testRepa/static/js/main.9ae079d2.js.map",
     "787.af04e08f.chunk.js.map": "/testRepa/static/js/787.af04e08f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e036b5d3.css",
-    "static/js/main.acf64b3f.js"
+    "static/css/main.2d71f418.css",
+    "static/js/main.9ae079d2.js"
   ]
 }
